@@ -1,0 +1,114 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>都市信息网</title>
+
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+</head>
+<body background="/images/back.gif">
+<center>
+    <table border="0" width="920" cellspacing="0" cellpadding="0" bgcolor="white">
+        <tr>
+            <td colspan="2">
+                <!-- 页眉 -->
+                <iframe src="/view/top.html" frameBorder="0" width="920" scrolling="no" height="200" ></iframe>
+
+            </td>
+        </tr>
+        <tr>
+            <td width="230" valign="top" align="center">
+                <!-- 左边 -->
+                <iframe src="/view/left.html" frameBorder="0" width="225" scrolling="no" height="400" ></iframe>
+            </td>
+            <td width="690" height="400" align="center" valign="top" bgcolor="#FFFFFF">
+                <table border="0" cellpadding="0" cellspacing="0" width="688" height="100%">
+                    <tr height="20"><td><img src="images/default_t.jpg"></td></tr>
+                    <tr>
+                        <td background="/images/default_m.jpg" valign="top" align="center">
+                            <form id="info_Add_action" name="info_Add_action" action="/web/info_Add.action" method="post">
+                                <input type="hidden" name="addType" value="add"/>
+                                <table border="0" width="650" height="300"  cellspacing="0">
+                                    <tr height="30"><td style="text-indent:10"><font color="#004790"><b>■发布信息</b></font></td></tr>
+                                    <tr>
+                                        <td align="center">
+                                            <table border="0" width="650"  cellspacing="8">
+                                                <tr>
+                                                    <td width="20%" style="text-indent:10">信息类别：</td>
+                                                    <td>
+                                                        <select name="infoSingle.infoType" id="info_Add_action_infoSingle_infoType">
+                                                            <option value=""></option>
+                                                            <option value="0">暂时没有信息</option>
+                                                            <option value="1">招聘信息</option>
+                                                            <option value="2">培训信息</option>
+                                                            <option value="3">房屋信息</option>
+                                                            <option value="4">求购信息</option>
+                                                            <option value="5">招商引资</option>
+                                                            <option value="6">公寓信息</option>
+                                                            <option value="7">求职信息</option>
+                                                            <option value="8">家教信息</option>
+                                                            <option value="9">车辆信息</option>
+                                                            <option value="10">出售信息</option>
+                                                            <option value="11">寻找启示</option>
+
+                                                        </select>
+
+                                                    </td>
+                                                    <td align="right"><font color="#7F7F7F">[信息标题最多不得超过40个字符]&nbsp;&nbsp;</font></td>
+                                                </tr>
+                                                <tr><td colspan="3"></td></tr>
+                                                <tr>
+                                                    <td style="text-indent:10">信息标题：</td>
+                                                    <td colspan="2"><input type="text" name="infoSingle.infoTitle" size="80" maxlength="40" value="" id="info_Add_action_infoSingle_infoTitle"/></td>
+                                                </tr>
+                                                <tr><td colspan="3"></td></tr>
+                                                <tr>
+                                                    <td style="text-indent:10">信息内容：</td>
+                                                    <td>
+                                                        <font color="#7F7F7F">
+                                                            已用：<input type="text" name="ContentUse" value="0" size="4" disabled style="text-align:center;border:0;"> 个&nbsp;&nbsp;
+                                                            剩余：<input type="text" name="ContentRem" value="500" size="4" disabled style="text-align:center;border:0;"> 个
+                                                        </font>
+                                                    </td>
+                                                    <td align="right"><font color="#7F7F7F">[信息内容最多不得超过500个字符]&nbsp;&nbsp;</font></td>
+                                                </tr>
+                                                <tr><td colspan="3"></td></tr>
+                                                <tr><td colspan="3" align="center"><textarea name="infoSingle.infoContent" cols="75" rows="10" id="content" onkeydown="check(content,ContentUse,ContentRem,500)" onkeyup="check(content,ContentUse,ContentRem,500)" onchange="check(content,ContentUse,ContentRem,500)"></textarea></td></tr>
+                                                <tr>
+                                                    <td style="text-indent:10">联系电话：</td>
+                                                    <td colspan="2"><input type="text" name="infoSingle.infoPhone" size="45" value="" id="info_Add_action_infoSingle_infoPhone"/><font color="gray">&nbsp;[多个电话以逗号分隔！]</font></td>
+                                                </tr>
+                                                <tr><td colspan="3"></td></tr>
+                                                <tr>
+                                                    <td style="text-indent:10">联 系 人：</td>
+                                                    <td colspan="2"><input type="text" name="infoSingle.infoLinkman" size="50" value="" id="info_Add_action_infoSingle_infoLinkman"/></td>
+                                                </tr>
+                                                <tr><td colspan="3"></td></tr>
+                                                <tr>
+                                                    <td style="text-indent:10">E - mail：</td>
+                                                    <td colspan="2"><input type="text" name="infoSingle.infoEmail" size="55" value="" id="info_Add_action_infoSingle_infoEmail"/></td>
+                                                </tr>
+                                                <tr><td colspan="3"></td></tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr align="center" height="50">
+                                        <td>
+                                            <input type="submit" id="info_Add_action_0" value="&#21457;&#24067;"/>
+
+                                            <input type="reset" value="&#37325;&#22635;"/>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+
+                        </td>
+                    </tr>
+                    <tr height="26"><td><img src="/images/default_e.jpg"></td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>
