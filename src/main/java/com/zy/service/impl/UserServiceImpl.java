@@ -37,4 +37,13 @@ public class UserServiceImpl implements UserService {
     public int register(Tb_User tb_user) {
         return userDao.register(tb_user);
     }
+
+    /**
+     * 用户注册时，保证姓名唯一
+     * @param user_name
+     * @return
+     */
+    public Tb_User checkRegister(String user_name){
+        return userDao.checkRegister(user_name);
+    }
 }

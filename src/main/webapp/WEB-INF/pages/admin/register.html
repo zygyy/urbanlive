@@ -1,35 +1,31 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>管理员登录</title>
+    <title>管理员注册</title>
     <link type="text/css" rel="stylesheet" href="/css/style.css;">
     <script src="/js/jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <script>
-        /*登录*/
-        function login() {
+        function register() {
             var user_name = document.getElementById('log_Login_action_user_userName').value;
             var user_password = document.getElementById('log_Login_action_user_userPassword').value;
+            var user_passwordQueRen = document.getElementById('log_Login_action_user_userPasswordQueRen').value;
             $.ajax({
-                url: "/user/login",
-                type: 'post',
+                url: "/user/register/"+user_passwordQueRen,
+                type: "post",
                 data: {
                     user_name: user_name,
-                    user_password: user_password
+                    user_password: user_password,
                 },
                 success: function (result) {
                     if(result.flag==true){
-                        location.href = '/pages/admin/view/AdminTemp.html';
-                    }else{
                         alert(result.message)
                         location.href = '/pages/admin/login.html';
+                    }else{
+                        alert(result.message)
+                        location.href = '/pages/admin/register.html';
                     }
                 }
             })
-        }
-
-        /*注册页面*/
-        function register(){
-            location.href = '/pages/admin/register.html';
         }
     </script>
 </head>
@@ -56,14 +52,18 @@
                             <td style="text-indent:5"><input type="password" name="user.userPassword" size="30"
                                                              id="log_Login_action_user_userPassword"/></td>
                         </tr>
+
+                        <tr height="30">
+                            <td align="right">确认密码：&nbsp;&nbsp;</td>
+                            <td style="text-indent:5"><input type="password" name="user.userPassword" size="30"
+                                                             id="log_Login_action_user_userPasswordQueRen"/></td>
+                        </tr>
                         <tr height="60">
                             <td></td>
                             <td>
+
                                 <input type="button" id="" value="注册"
                                        onclick="register()"/>
-
-                                <input type="button" id="" value="登录"
-                                       onclick="login()"/>
 
                                 <input type="reset" value="重置"/>
 

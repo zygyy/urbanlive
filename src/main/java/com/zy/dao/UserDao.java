@@ -16,6 +16,13 @@ public interface UserDao {
     public Tb_User login(String user_name);
 
     /**
+     * 用户注册时，保证姓名唯一(跟登录方法相同，可以省略)
+     * @param user_name
+     * @return
+     */
+    public Tb_User checkRegister(String user_name);
+
+    /**
      * 用户注册
      * @param tb_user
      * @return

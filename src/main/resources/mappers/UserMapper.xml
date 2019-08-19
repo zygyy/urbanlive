@@ -10,8 +10,13 @@
     </select>
 
     <!--注册-->
-    <insert id="register" parameterType="Tb_User">
-        insert into tb_user values (null,user_name,user_password,null,null)
+    <insert id="register" parameterType="Tb_User" >
+        insert into tb_user values(null,#{user_name},#{user_password},0,0)
     </insert>
+
+    <!--检查用户是否重复-->
+    <select id="checkRegister" resultType="Tb_User">
+         select * from tb_user where user_name=#{user_name}
+    </select>
 
 </mapper> 
