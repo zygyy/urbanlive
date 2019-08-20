@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.dao.InfoDao">
+
+    <!--发布信息-->
+    <insert id="addMessage" parameterType="Tb_info">
+        insert into  tb_info values(null,#{info_type},#{info_title},#{info_content},#{info_linkman},#{info_phone},#{info_email},#{info_date},0,0,0)
+    </insert>
+
+</mapper> 

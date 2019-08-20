@@ -30,4 +30,6 @@ public interface UserService {
      * @return
      */
     public Tb_User checkRegister(String user_name);
+
+
 }
