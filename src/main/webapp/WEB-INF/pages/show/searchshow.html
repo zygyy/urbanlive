@@ -3,18 +3,20 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>都市信息网</title>
     <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+
 </head>
 <body background="/images/back.gif">
 <center>
     <table border="0" width="920" cellspacing="0" cellpadding="0" bgcolor="white">
         <tr><td colspan="2">
             <!-- 页眉 -->
-            <iframe src="/view/top.html" frameBorder="0" width="920" scrolling="no" height="200" ></iframe>
+            <iframe  src="/view/top.html" frameBorder="0" width="920" scrolling="no" height="200" ></iframe>
         </td></tr>
         <tr>
             <td width="230" valign="top" align="center">
                 <!-- 左侧 -->
-                <iframe src="/view/left.html" frameBorder="0" width="225" scrolling="no" height="400" ></iframe>
+                <iframe id="searchPage" src="/view/left.html" frameBorder="0" width="225" scrolling="no" height="400" ></iframe>
             </td>
             <td width="690" height="400" align="center" valign="top" bgcolor="#FFFFFF">
                 <table border="0" width="670" cellspacing="0" cellpadding="0" style="margin-top:5">
@@ -23,7 +25,8 @@
                     <tr height="1"><td></td></tr>
                     <tr>
                         <td align="center" style="border:1 solid">
-                            <table border="0" width="100%" rules="rows" cellspacing="0">
+                            <table id="searchResult" border="0" width="100%" rules="rows" cellspacing="0">
+                                <thead>
                                 <tr align="center" height="30" bgcolor="#F0F0F0">
                                     <td width="6%"><b>序号</b></td>
                                     <td width="11%"><b>信息类别</b></td>
@@ -32,45 +35,30 @@
                                     <td width="22%"><b>发布时间</b></td>
                                     <td width="15%"><b>联系人</b></td>
                                 </tr>
-
-                                <tr height="30">
-                                    <td align="center"><b>1</b></td>
-                                    <td align="center">招聘信息</td>
-                                    <td style="text-indent:10">134</td>
-                                    <td style="text-indent:5"><a href="info_SingleShow.action?id=134">发布招聘信息标题</a></td>
-                                    <td align="center">2007-12-26 13:58:53</td>
-                                    <td style="text-indent:10">小免</td>
-                                </tr>
-
-                                <tr height="30" bgcolor="#F9F9F9">
-
-                                    <td align="center"><b>2</b></td>
-                                    <td align="center">寻找启示</td>
-                                    <td style="text-indent:10">133</td>
-                                    <td style="text-indent:5"><a href="info_SingleShow.action?id=133">发布寻找启示标题</a></td>
-                                    <td align="center">2007-12-26 13:56:49</td>
-                                    <td style="text-indent:10">小免</td>
-                                </tr>
-
-
+                                </thead>
+                                <tbody>
+                                </tbody>
                             </table>
                         </td>
                     </tr>
                     <tr height="1"><td></td></tr>
                     <tr height="30"><td align="center">
-
-
                         <html>
                         <head><title>分页导航栏</title></head>
                         <body>
-
                         <table border="0" width="100%" cellspacing="0">
                             <tr>
-                                <td width="60%"><table border='0' cellpadding='3'><tr><td>每页显示：8/22 条记录！当前页：1/3 页！</td></tr></table></td>
-                                <td align="center" width="40%"><table border='0' cellpadding='3'><tr><td><a href='info_SearchShow.action?searchInfo.subsql=info_phone&searchInfo.sqlvalue=1&searchInfo.type=like&showType=link&showpage=2'>下一页</a>&nbsp;<a href='info_SearchShow.action?searchInfo.subsql=info_phone&searchInfo.sqlvalue=1&searchInfo.type=like&showType=link&showpage=3'>尾页</a></td></tr></table></td>
+                                <!--显示分页的信息-->
+                                <div class="row">
+                                    <!--分页文字信息-->
+                                    <div class="col-md-6" align="left" id="page_info_area">
+                                    </div>
+                                    <!--分页条信息-->
+                                    <div class="col-md-6" align="right" id="page_nav_area">
+                                    </div>
+                                </div>
                             </tr>
                         </table>
-
                         </body>
                         </html></td></tr>
                 </table>
@@ -84,4 +72,75 @@
     <iframe src="/view/end.html" frameBorder="0" width="920" scrolling="no" height="70" style="margin-top:0"></iframe>
 </center>
 </body>
+<script>
+    window.onload=function(){
+        // 通过getElementById获取嵌套页面的ID调用嵌套的页面的方法进行参数回填
+        document.getElementById("searchPage").contentWindow.optionBreak();
+        searchInfo(1);
+    };
+
+
+    <!--    根据不同条件进行信息搜索-->
+    function searchInfo(pN) {
+        var searchType = window.localStorage.getItem("searchType");
+        var type = window.localStorage.getItem("type");
+        var key = window.localStorage.getItem("key");
+        var size = 5;
+        if (pN == null || pN == undefined || pN == '') {
+            pN = 1;
+        }
+        $.ajax({
+            url:'/info/search',
+            type:'post',
+            data:{
+                pageNum:pN,
+                pageSize:size,
+                type:type,
+                key:key,
+                searchType:searchType
+            },
+            success:function (result) {
+                build_result(result);
+                build_page_info(result);
+                build_page_nav(result);
+            }
+        });
+    }
+
+    // 解析并显示结果集
+    function build_result(result) {
+        $("#searchResult tbody").empty();
+        var infos = result.data.list;
+        console.info(infos)
+        $.each(infos, function (index, item) {
+            var id = $("<td></td>").append(index + 1);
+            var infoType = $("<td></td>").append(item.tb_type.type_name);
+            var infoId = $("<td></td>").append(item.id);
+            var infoTitle = $("<td></td>").append(item.info_title);
+            var infoDate = $("<td></td>").append(item.info_date);
+            var infoLinkman = $("<td></td>").append(item.info_linkman);
+            $("<tr></tr>").append(id)
+                .append(infoType)
+                .append(infoId)
+                .append(infoTitle)
+                .append(infoDate)
+                .append(infoLinkman)
+                .appendTo("#searchResult tbody");
+        })
+    }
+
+    //解析显示分页信息
+    function build_page_info(result) {
+        //清空数据
+        $("#page_info_area").empty();
+        $("#page_info_area").append("当前第" + result.data.pageNum + "页,总共"
+            + result.data.pages + "页,共计"
+            + result.data.total + "条记录");
+        totalRecord = result.data.total;
+        currentPage = result.data.pageNum;
+    }
+
+
+
+</script>
 </html>

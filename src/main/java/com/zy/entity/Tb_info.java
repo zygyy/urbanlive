@@ -19,6 +19,8 @@ public class Tb_info {
     private String info_check;
     private String info_payFor;
     private String info_status;
+    private Tb_type tb_type;
+
 
     public int getId() {
         return id;
@@ -108,6 +110,14 @@ public class Tb_info {
         this.info_status = info_status;
     }
 
+    public Tb_type getTb_type() {
+        return tb_type;
+    }
+
+    public void setTb_type(Tb_type tb_type) {
+        this.tb_type = tb_type;
+    }
+
     @Override
     public String toString() {
         return "Tb_info{" +
@@ -118,10 +128,11 @@ public class Tb_info {
                 ", info_linkman='" + info_linkman + '\'' +
                 ", info_phone='" + info_phone + '\'' +
                 ", info_email='" + info_email + '\'' +
-                ", info_date=" + info_date +
+                ", info_date='" + info_date + '\'' +
                 ", info_check='" + info_check + '\'' +
                 ", info_payFor='" + info_payFor + '\'' +
                 ", info_status='" + info_status + '\'' +
+                ", tb_type=" + tb_type +
                 '}';
     }
 }

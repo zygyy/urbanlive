@@ -1,15 +1,12 @@
 package com.zy.controller;
 
+import com.github.pagehelper.Page;
 import com.zy.entity.Result;
 import com.zy.entity.StatusCode;
 import com.zy.entity.Tb_info;
 import com.zy.service.InfoService;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -29,11 +26,12 @@ public class InfoController {
 
     /**
      * 发布新消息
+     *
      * @param tb_info
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/addMessage",method = RequestMethod.POST)
+    @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
     public Result addMessage(Tb_info tb_info) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         tb_info.setInfo_date(simpleDateFormat.format(new Date()));
@@ -45,5 +43,29 @@ public class InfoController {
         }
     }
 
+
+    /**
+     *按照类型查询相应数据
+     * @param pageNum    分页属性当前页数
+     * @param pageSize   页面size
+     * @param type       属性
+     * @param key        查询的关键字
+     * @param searchType 查询的类型-模糊查询、全字查询
+     * @return
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
+    @ResponseBody
+    @RequestMapping("/search")
+    public Result searchByType(int pageNum, int pageSize, String type, String key, String searchType) throws NoSuchFieldException,IllegalAccessException  {
+        Page page = new Page();
+        page.setPageNum(pageNum);
+        page.setPageSize(pageSize);
+        if (searchType.equals("all")) {
+            return infoService.selectByAll(page,type,key) ;
+        } else {
+            return infoService.selectByLike(page,type,key) ;
+        }
+    }
 
 }

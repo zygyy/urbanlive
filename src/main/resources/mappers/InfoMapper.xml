@@ -4,9 +4,80 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zy.dao.InfoDao">
 
+    <resultMap id="queryAndType" type="Tb_info">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="info_type" jdbcType="INTEGER" property="info_type" />
+        <result column="info_title" jdbcType="VARCHAR" property="info_title" />
+        <result column="info_content" jdbcType="VARCHAR" property="info_content" />
+        <result column="info_linkman" jdbcType="VARCHAR" property="info_linkman" />
+        <result column="info_phone" jdbcType="VARCHAR" property="info_phone" />
+        <result column="info_email" jdbcType="VARCHAR" property="info_email" />
+        <result column="info_date" jdbcType="VARCHAR" property="info_date" />
+        <result column="info_check" jdbcType="VARCHAR" property="info_check" />
+        <result column="info_payFor" jdbcType="VARCHAR" property="info_payFor" />
+        <result column="info_status" jdbcType="VARCHAR" property="info_status" />
+        <association property="tb_type" javaType="Tb_type">
+            <id column="type_sign" property="type_sign"></id>
+            <result column="type_name" property="type_name"></result>
+            <result column="type_intro" property="type_intro"></result>
+        </association>
+    </resultMap>
+
     <!--发布信息-->
     <insert id="addMessage" parameterType="Tb_info">
         insert into  tb_info values(null,#{info_type},#{info_title},#{info_content},#{info_linkman},#{info_phone},#{info_email},#{info_date},0,0,0)
     </insert>
 
-</mapper> 
+
+    <!--模糊查询-->
+    <select id="selectByLike" resultMap="queryAndType" parameterType="Tb_info">
+        select *
+        from tb_info i, tb_type t
+        where 1=1
+        <if test="id != null and id != ''">
+            and id like concat('%', #{id} ,'%')
+        </if>
+        <if test="info_title != null and info_title != ''">
+            and info_title like concat('%', #{info_title}  ,'%')
+        </if>
+        <if test="info_content != null and info_content != ''">
+            and info_content like concat('%', #{info_content} ,'%')
+        </if>
+        <if test="info_linkman != null and info_linkman != ''">
+            and info_linkman like concat('%', #{info_linkman}  ,'%')
+        </if>
+        <if test="info_phone != null and info_phone != ''">
+            and info_phone like concat('%', #{info_phone} ,'%')
+        </if>
+        <if test="info_email != null and info_email != ''">
+            and info_email like concat('%', #{info_email} ,'%')
+        </if>
+        and t.type_sign=i.info_type
+    </select>
+
+    <!--全字匹配-->
+    <select id="selectByAll" resultMap="queryAndType" parameterType="Tb_info">
+        select * from tb_info i, tb_type t
+        where 1=1
+        <if test="id != null and id != ''">
+            and id =#{id}
+        </if>
+        <if test="info_title != null and info_title != ''">
+            and info_title=#{info_title}
+        </if>
+        <if test="info_content != null and info_content != ''">
+            and info_content=#{info_content}
+        </if>
+        <if test="info_linkman != null and info_linkman != ''">
+            and info_linkman=#{info_linkman}
+        </if>
+        <if test="info_phone != null and info_phone != ''">
+            and info_phone=#{info_phone}
+        </if>
+        <if test="info_email != null and info_email != ''">
+            and info_email=#{info_email}
+        </if>
+        and t.type_sign=i.info_type
+    </select>
+
+</mapper>

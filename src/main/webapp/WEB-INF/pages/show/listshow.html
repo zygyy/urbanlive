@@ -21,7 +21,7 @@
                 <table border="0" width="670" cellspacing="0" cellpadding="0" style="margin-top:5">
 
 
-                    <tr height="30"><td style="text-indent:5" valign="bottom"><font color="#004790"><b>■推荐XX信息</b>『缴费专区』</font></td></tr>
+                    <tr height="30"><td style="text-indent:5" valign="bottom"><font color="#004790"><b>■推荐八卦信息</b>『免费专区』</font></td></tr>
 
 
                     <tr><td align="center" style="border:1 solid" bgcolor="#F0F0F0">
@@ -29,14 +29,14 @@
 
                         <table border="0" width="655" cellpadding="3" style="word-break:break-all">
                             <tr height="30">
-                                <td colspan="2">【XX信息】</td>
-                                <td align="right">发布时间：『2014-10-26 11:16:14』&nbsp;</td>
+                                <td colspan="2">${theLastFreeMessage.info_title}</td>
+                                <td align="right">发布时间：『${theLastFreeMessage.info_date}』&nbsp;</td>
                             </tr>
-                            <tr height="80"><td colspan="3">XX信息内容</td></tr>
+                            <tr height="80"><td colspan="3">${theLastFreeMessage.info_content}</td></tr>
                             <tr height="30" align="center">
-                                <td>联系电话：13255******</td>
-                                <td>联 系 人：XX</td>
-                                <td>E-mail：888@8*.com</td>
+                                <td>联系电话：${theLastFreeMessage.info_phone}</td>
+                                <td>联 系 人：${theLastFreeMessage.info_linkman}</td>
+                                <td>E-mail：${theLastFreeMessage.info_email}</td>
                             </tr>
                         </table>
                     </td>
@@ -50,7 +50,7 @@
                 <table border="0" width="670" cellspacing="0" cellpadding="0" style="margin-top:5" rules="rows">
 
 
-                    <tr height="30"><td style="text-indent:5" valign="bottom"><font color="#004790"><b>■最新XX信息</b>『免费专区』</font></td></tr>
+                    <tr height="30"><td style="text-indent:5" valign="bottom"><font color="#004790"><b>■最新无聊信息</b>『收费专区』</font></td></tr>
 
 
                     <tr><td align="center" style="border:1 solid" bgcolor="#F0F0F0">
@@ -58,14 +58,14 @@
 
                         <table border="0" width="655" cellpadding="3" style="word-break:break-all">
                             <tr height="30">
-                                <td colspan="2">【XX信息】</td>
-                                <td align="right">发布时间：『2014-10-26 13:58:53』&nbsp;</td>
+                                <td colspan="2">【${theLastMoneyMessage.info_title}】</td>
+                                <td align="right">发布时间：『${theLastMoneyMessage.info_date}』&nbsp;</td>
                             </tr>
-                            <tr height="80"><td colspan="3">发布XX信息标题</td></tr>
+                            <tr height="80"><td colspan="3">${theLastMoneyMessage.info_content}</td></tr>
                             <tr height="30" align="center">
-                                <td>联系电话：11111******</td>
-                                <td>联系人：XX</td>
-                                <td>E-mail：44@1*.com</td>
+                                <td>联系电话：${theLastMoneyMessage.info_content}</td>
+                                <td>联系人：${theLastMoneyMessage.info_phone}</td>
+                                <td>E-mail：${theLastMoneyMessage.info_email}</td>
                             </tr>
                         </table>
                     </td>

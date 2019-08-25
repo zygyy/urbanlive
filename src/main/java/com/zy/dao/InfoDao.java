@@ -2,6 +2,8 @@ package com.zy.dao;
 
 import com.zy.entity.Tb_info;
 
+import java.util.List;
+
 /**
  * @author 周宇
  * @university ycit.com
@@ -14,4 +16,19 @@ public interface InfoDao {
      * @return
      */
     public int addMessage(Tb_info tb_info);
+
+    /**
+     * 全字匹配查询
+     * @param tb_info
+     * @return
+     */
+    public List<Tb_info> selectByAll(Tb_info tb_info);
+
+    /**
+     * 模糊查询
+     * @param tb_info
+     * @return
+     */
+    public List<Tb_info> selectByLike(Tb_info tb_info);
+
 }
