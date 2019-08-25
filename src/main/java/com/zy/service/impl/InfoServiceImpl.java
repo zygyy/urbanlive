@@ -34,40 +34,51 @@ public class InfoServiceImpl implements InfoService {
     }
 
     /**
-     * 全字匹配查询
-     *
+     * 判断查询类型，调用不同的查询方法
      * @param page
      * @param type
      * @param key
+     * @param searchType
      * @return
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      */
-    public Result selectByAll(Page page, String type, String key) throws NoSuchFieldException, IllegalAccessException {
+    @Override
+    public Result select(Page page, String type, String key, String searchType) throws NoSuchFieldException, IllegalAccessException {
         Tb_info tb_info = new Tb_info();
         Field field = Tb_info.class.getDeclaredField(type);
         field.setAccessible(true);
         field.set(tb_info, key);
+        if (searchType.equals("all")) {
+            return selectByAll(page, tb_info);
+        } else {
+            return selectByLike(page, tb_info);
+        }
+    }
+
+    /**
+     * 全字匹配查询
+     *
+     * @param page
+     * @param tb_info
+     * @return
+     */
+    public Result selectByAll(Page page, Tb_info tb_info) {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Tb_info> tb_infos = infoDao.selectByAll(tb_info);
         PageInfo<Tb_info> tb_infoPageInfo = new PageInfo<>(tb_infos);
+        System.out.println("PageSize"+tb_infoPageInfo.getPageSize());
         return new Result(tb_infoPageInfo);
     }
 
     /**
      * 模糊查询
+     *
      * @param page
-     * @param type
-     * @param key
+     * @param tb_info
      * @return
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
      */
-    public Result selectByLike(Page page, String type, String key) throws NoSuchFieldException, IllegalAccessException {
-        Tb_info tb_info = new Tb_info();
-        Field field = Tb_info.class.getDeclaredField(type);
-        field.setAccessible(true);
-        field.set(tb_info, key);
+    public Result selectByLike(Page page, Tb_info tb_info) {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Tb_info> tb_infos = infoDao.selectByLike(tb_info);
         PageInfo<Tb_info> tb_infoPageInfo = new PageInfo<>(tb_infos);

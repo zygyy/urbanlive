@@ -46,8 +46,6 @@ public class InfoController {
 
     /**
      *按照类型查询相应数据
-     * @param pageNum    分页属性当前页数
-     * @param pageSize   页面size
      * @param type       属性
      * @param key        查询的关键字
      * @param searchType 查询的类型-模糊查询、全字查询
@@ -61,11 +59,7 @@ public class InfoController {
         Page page = new Page();
         page.setPageNum(pageNum);
         page.setPageSize(pageSize);
-        if (searchType.equals("all")) {
-            return infoService.selectByAll(page,type,key) ;
-        } else {
-            return infoService.selectByLike(page,type,key) ;
-        }
+        return infoService.select(page,type,key,searchType) ;
     }
 
 }

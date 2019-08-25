@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.zy.entity.Result;
 import com.zy.entity.Tb_info;
 
-import java.util.List;
 
 /**
  * @author 周宇
@@ -21,28 +20,33 @@ public interface InfoService {
     public int addMessage(Tb_info tb_info);
 
     /**
-     * 全字匹配查询
+     * 分类型查询
      *
      * @param page
      * @param type
      * @param key
+     * @param searchType
      * @return
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
      */
-    public Result selectByAll(Page page, String type, String key) throws NoSuchFieldException, IllegalAccessException;
+    public Result select(Page page, String type, String key, String searchType) throws NoSuchFieldException, IllegalAccessException;
+
+
+    /**
+     * 全字匹配查询
+     *
+     * @param page
+     * @param tb_info
+     * @return
+     */
+    public Result selectByAll(Page page, Tb_info tb_info);
+
 
     /**
      * 模糊查询
      *
      * @param page
-     * @param type
-     * @param key
+     * @param tb_info
      * @return
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
      */
-    public Result selectByLike(Page page, String type, String key) throws NoSuchFieldException, IllegalAccessException;
-
-
+    public Result selectByLike(Page page, Tb_info tb_info);
 }
