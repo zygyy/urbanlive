@@ -10,14 +10,14 @@
 
     <table id="searchResult" border="0" cellpadding="0" cellspacing="0" width="650" height="300">
         <thead>
-        <tr align="center" height="50" bgcolor="#F0F0F0">
-            <td width="6%"><b>序号</b></td>
-            <td width="11%"><b>信息类别</b></td>
-            <td width="8%"><b>ID值</b></td>
-            <td width="24%"><b>信息标题</b></td>
-            <td width="28%"><b>发布时间</b></td>
-            <td width="15%"><b>联系人</b></td>
-        </tr>
+        <!--<tr align="center" height="50" bgcolor="#F0F0F0">-->
+            <!--<td width="6%"><b>序号</b></td>-->
+            <!--<td width="11%"><b>信息类别</b></td>-->
+            <!--<td width="8%"><b>ID值</b></td>-->
+            <!--<td width="24%"><b>信息标题</b></td>-->
+            <!--<td width="28%"><b>发布时间</b></td>-->
+            <!--<td width="15%"><b>联系人</b></td>-->
+        <!--</tr>-->
         </thead>
         <tbody></tbody>
     </table>
@@ -59,8 +59,22 @@
 
     // 解析并显示结果集
     function build_result(result) {
+        $("#searchResult thead").empty();
         $("#searchResult tbody").empty();
         var infos = result.data.list;
+        var id = $("<td></td>").append('序号');
+        var infoType = $("<td></td>").append('信息类别');
+        var infoId = $("<td></td>").append('ID值');
+        var infoTitle = $("<td></td>").append('信息标题');
+        var infoDate = $("<td></td>").append('发布时间');
+        var infoLinkman = $("<td></td>").append('联系人');
+        $("<tr></tr>").append(id)
+            .append(infoType)
+            .append(infoId)
+            .append(infoTitle)
+            .append(infoDate)
+            .append(infoLinkman)
+            .appendTo("#searchResult thead");
         $.each(infos, function (index, item) {
             var id = $("<td></td>").append(index + 1);
             var infoType = $("<td></td>").append(item.tb_type.type_name);
