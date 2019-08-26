@@ -1,7 +1,5 @@
 package com.zy.entity;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
 /**
  * @author 周宇
  * @university ycit.com

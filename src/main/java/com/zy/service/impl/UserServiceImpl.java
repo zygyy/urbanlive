@@ -2,7 +2,6 @@ package com.zy.service.impl;
 
 import com.zy.dao.UserDao;
 import com.zy.entity.Tb_User;
-import com.zy.entity.Tb_info;
 import com.zy.service.UserService;
 import org.springframework.stereotype.Service;
 
