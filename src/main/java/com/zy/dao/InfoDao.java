@@ -31,4 +31,12 @@ public interface InfoDao {
      */
     public List<Tb_info> selectByLike(Tb_info tb_info);
 
+    /**
+     * 查询付款信息
+     * @param tb_info
+     * @return
+     */
+    public List<Tb_info> selectAllByCheckPay(Tb_info tb_info);
+
+
 }

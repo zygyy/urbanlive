@@ -45,7 +45,10 @@ public class InfoController {
 
 
     /**
-     *按照类型查询相应数据
+     * 按照类型查询相应数据
+     *
+     * @param pageNum    当前页数
+     * @param pageSize   页面条数
      * @param type       属性
      * @param key        查询的关键字
      * @param searchType 查询的类型-模糊查询、全字查询
@@ -55,11 +58,29 @@ public class InfoController {
      */
     @ResponseBody
     @RequestMapping("/search")
-    public Result searchByType(int pageNum, int pageSize, String type, String key, String searchType) throws NoSuchFieldException,IllegalAccessException  {
+    public Result searchByType(int pageNum, int pageSize, String type, String key, String searchType) throws NoSuchFieldException, IllegalAccessException {
         Page page = new Page();
         page.setPageNum(pageNum);
         page.setPageSize(pageSize);
-        return infoService.select(page,type,key,searchType) ;
+        return infoService.select(page, type, key, searchType);
     }
+
+    /**
+     * 根据付费状态、审核状态查询信息
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param tb_info
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/select")
+    public Result selectAllByCheckPay(int pageNum, int pageSize, Tb_info tb_info) {
+        Page page = new Page();
+        page.setPageNum(pageNum);
+        page.setPageSize(pageSize);
+        return infoService.selectAllByCheckPay(page, tb_info);
+    }
+
 
 }

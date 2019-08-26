@@ -3,6 +3,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>后台-侧栏</title>
     <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body background="/images/back.gif" style="background-color:white">
@@ -25,7 +26,7 @@
                                     <label for="admin_ListShow_action?_showType_payforType0">未付费</label>
                                     <input type="radio" name="showType.payforType" id="admin_ListShow_action?_showType_payforType1" value="1"/>
                                     <label for="admin_ListShow_action?_showType_payforType1">已付费</label>
-                                    <input type="radio" name="showType.payforType" id="admin_ListShow_action?_showType_payforTypeall" value="all"/>
+                                    <input checked type="radio" name="showType.payforType" id="admin_ListShow_action?_showType_payforTypeall" value="all"/>
                                     <label for="admin_ListShow_action?_showType_payforTypeall">全部</label>
 
                                 </fieldset>
@@ -36,7 +37,7 @@
                                     <label for="admin_ListShow_action?_showType_stateType0">未审核</label>
                                     <input type="radio" name="showType.stateType" id="admin_ListShow_action?_showType_stateType1" value="1"/>
                                     <label for="admin_ListShow_action?_showType_stateType1">已审核</label>
-                                    <input type="radio" name="showType.stateType" id="admin_ListShow_action?_showType_stateTypeall" value="all"/>
+                                    <input type="radio" checked name="showType.stateType" id="admin_ListShow_action?_showType_stateTypeall" value="all"/>
                                     <label for="admin_ListShow_action?_showType_stateTypeall">全部</label>
 
                                 </fieldset>
@@ -46,7 +47,7 @@
                             <td>
                                 信息类别：
 
-                                <select name="showType.infoType" id="admin_ListShow_action?_showType_infoType">
+                                <select name="showType.infoType" id="admin_ListShow_action_showType_infoType">
                                     <option value=""></option>
                                     <option value="0">暂时没有信息</option>
                                     <option value="1">招聘信息</option>
@@ -60,11 +61,9 @@
                                     <option value="9">车辆信息</option>
                                     <option value="10">出售信息</option>
                                     <option value="11">寻找启示</option>
-
-
                                 </select>
 
-                                <input type="submit" id="admin_ListShow_action?_0" value="显示"/>
+                                <input type="button" onclick="query()" id="admin_ListShow_action?_0" value="显示"/>
 
                             </td>
                         </tr>
@@ -86,7 +85,7 @@
                         <tr height="40">
                             <td align="center">
                                 <input type="text" name="moneyID" value="" size="24"/>
-                                <input type="submit" value="查询"/>
+                                <input type="button" value="查询"/>
                             </td>
                         </tr>
                     </table>
@@ -106,6 +105,16 @@
 </center>
 </body>
 <script>
+    function query(){
+        var pay = $("input[name='showType.payforType']:checked").val();
+        var check = $("input[name='showType.stateType']:checked").val();
+        var type = $("#admin_ListShow_action_showType_infoType").val();
+        window.localStorage.setItem("info_payfor", pay);
+        window.localStorage.setItem("info_check", check);
+        window.localStorage.setItem("info_type", type);
+        window.parent.document.getElementById("main_show").contentWindow.document.getElementById("show").contentWindow.getInfo(1);
+
+    }
     WdatePicker({eCont:'div1'})
 </script>
 </html>

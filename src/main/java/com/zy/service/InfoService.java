@@ -49,4 +49,14 @@ public interface InfoService {
      * @return
      */
     public Result selectByLike(Page page, Tb_info tb_info);
+
+
+    /**
+     * 根据付费状态，审核状态查询信息
+     *
+     * @param page
+     * @param tb_info
+     * @return
+     */
+    public Result selectAllByCheckPay(Page page, Tb_info tb_info);
 }

@@ -14,7 +14,7 @@
         <result column="info_email" jdbcType="VARCHAR" property="info_email" />
         <result column="info_date" jdbcType="VARCHAR" property="info_date" />
         <result column="info_check" jdbcType="VARCHAR" property="info_check" />
-        <result column="info_payFor" jdbcType="VARCHAR" property="info_payFor" />
+        <result column="info_payfor" jdbcType="VARCHAR" property="info_payfor" />
         <result column="info_status" jdbcType="VARCHAR" property="info_status" />
         <association property="tb_type" javaType="Tb_type">
             <id column="type_sign" property="type_sign"></id>
@@ -79,5 +79,23 @@
         </if>
         and t.type_sign=i.info_type
     </select>
+
+    <select id="selectAllByCheckPay" resultMap="queryAndType" parameterType="Tb_info">
+        select  *  from tb_info i, tb_type t
+        where 1=1
+        <if test="info_type != null and info_type != ''">
+            and info_type=#{info_type}
+        </if>
+        <if test="info_check != null and info_check != ''">
+            and info_check=#{info_check}
+        </if>
+        <if test="info_payfor != null and info_payfor != ''">
+            and info_payfor=#{info_payfor}
+        </if>
+        and t.type_sign=i.info_type
+    </select>
+
+
+
 
 </mapper>

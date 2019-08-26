@@ -35,6 +35,7 @@ public class InfoServiceImpl implements InfoService {
 
     /**
      * 判断查询类型，调用不同的查询方法
+     *
      * @param page
      * @param type
      * @param key
@@ -67,7 +68,7 @@ public class InfoServiceImpl implements InfoService {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Tb_info> tb_infos = infoDao.selectByAll(tb_info);
         PageInfo<Tb_info> tb_infoPageInfo = new PageInfo<>(tb_infos);
-        System.out.println("PageSize"+tb_infoPageInfo.getPageSize());
+        System.out.println("PageSize" + tb_infoPageInfo.getPageSize());
         return new Result(tb_infoPageInfo);
     }
 
@@ -81,6 +82,22 @@ public class InfoServiceImpl implements InfoService {
     public Result selectByLike(Page page, Tb_info tb_info) {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Tb_info> tb_infos = infoDao.selectByLike(tb_info);
+        PageInfo<Tb_info> tb_infoPageInfo = new PageInfo<>(tb_infos);
+        return new Result(tb_infoPageInfo);
+    }
+
+    /**
+     * 根据付费状态、审核状态查询信息
+     *
+     * @param page
+     * @param tb_info
+     * @return
+     */
+    @Override
+    public Result selectAllByCheckPay(Page page, Tb_info tb_info) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        List<Tb_info> tb_infos = infoDao.selectAllByCheckPay(tb_info);
+        System.out.println(tb_infos);
         PageInfo<Tb_info> tb_infoPageInfo = new PageInfo<>(tb_infos);
         return new Result(tb_infoPageInfo);
     }

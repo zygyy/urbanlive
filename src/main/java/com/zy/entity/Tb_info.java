@@ -15,7 +15,7 @@ public class Tb_info {
     private String info_email;
     private String info_date;
     private String info_check;
-    private String info_payFor;
+    private String info_payfor;
     private String info_status;
     private Tb_type tb_type;
 
@@ -92,12 +92,12 @@ public class Tb_info {
         this.info_check = info_check;
     }
 
-    public String getInfo_payFor() {
-        return info_payFor;
+    public String getInfo_payfor() {
+        return info_payfor;
     }
 
-    public void setInfo_payFor(String info_payFor) {
-        this.info_payFor = info_payFor;
+    public void setInfo_payfor(String info_payfor) {
+        this.info_payfor = info_payfor;
     }
 
     public String getInfo_status() {
@@ -128,7 +128,7 @@ public class Tb_info {
                 ", info_email='" + info_email + '\'' +
                 ", info_date='" + info_date + '\'' +
                 ", info_check='" + info_check + '\'' +
-                ", info_payFor='" + info_payFor + '\'' +
+                ", info_payfor='" + info_payfor + '\'' +
                 ", info_status='" + info_status + '\'' +
                 ", tb_type=" + tb_type +
                 '}';

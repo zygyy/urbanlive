@@ -1,14 +1,83 @@
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>后台首页</title></head>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/page.js"></script>
 <link type="text/css" rel="stylesheet" href="/css/style.css">
 <body>
 <center>
 
-    <table border="0" cellpadding="0" cellspacing="0" width="650" height="300">
-        <tr><td align="center">欢迎登录都市供求信息网后台！</td></tr>
+    <table id="searchResult" border="0" cellpadding="0" cellspacing="0" width="650" height="300">
+        <thead>
+        <tr align="center" height="50" bgcolor="#F0F0F0">
+            <td width="6%"><b>序号</b></td>
+            <td width="11%"><b>信息类别</b></td>
+            <td width="8%"><b>ID值</b></td>
+            <td width="24%"><b>信息标题</b></td>
+            <td width="28%"><b>发布时间</b></td>
+            <td width="15%"><b>联系人</b></td>
+        </tr>
+        </thead>
+        <tbody></tbody>
     </table>
+
+    <!--显示分页信息-->
+    <div class="row">
+        <!--分页文字信息-->
+        <div class="col-md-6" align="left" id="page_info_area">
+        </div>
+        <!--分页条信息-->
+        <div class="col-md-6" align="right" id="page_nav_area">
+        </div>
+    </div>
 </center>
 </body>
+<script>
+    function getInfo(pN) {
+        var pageSize = 5;
+        var type = window.localStorage.getItem("info_type");
+        var pay = window.localStorage.getItem("info_payfor");
+        var check = window.localStorage.getItem("info_check");
+        $.ajax({
+            url:"/info/select",
+            type:"post",
+            data:{
+                pageNum:pN,
+                pageSize:pageSize,
+                info_type:type,
+                info_payfor:pay,
+                info_check:check
+            },
+            success:function(result){
+                build_result(result);
+                build_page_info(result);
+                build_page_nav(result);
+            }
+        })
+    }
+
+    // 解析并显示结果集
+    function build_result(result) {
+        $("#searchResult tbody").empty();
+        var infos = result.data.list;
+        $.each(infos, function (index, item) {
+            var id = $("<td></td>").append(index + 1);
+            var infoType = $("<td></td>").append(item.tb_type.type_name);
+            var infoId = $("<td></td>").append(item.id);
+            var infoTitle = $("<td></td>").append(item.info_title);
+            var infoDate = $("<td></td>").append(item.info_date);
+            var infoLinkman = $("<td></td>").append(item.info_linkman);
+            $("<tr></tr>").append(id)
+                .append(infoType)
+                .append(infoId)
+                .append(infoTitle)
+                .append(infoDate)
+                .append(infoLinkman)
+                .appendTo("#searchResult tbody");
+        })
+    }
+
+
+</script>
 </html>
