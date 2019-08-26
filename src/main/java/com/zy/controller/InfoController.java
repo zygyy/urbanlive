@@ -4,10 +4,18 @@ import com.github.pagehelper.Page;
 import com.zy.entity.Result;
 import com.zy.entity.Tb_info;
 import com.zy.service.InfoService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -117,4 +125,29 @@ public class InfoController {
     public Result setPay(Tb_info tb_info) {
         return infoService.setPay(tb_info);
     }
+
+
+    /**
+     * 文件下载
+     *
+     * @param filename
+     * @return
+     * @throws URISyntaxException
+     * @throws IOException
+     */
+    @RequestMapping("/download")
+    ResponseEntity<byte[]> getUserBook(String filename) throws URISyntaxException, IOException {
+        String path = this.getClass().getClassLoader().getResource("").toURI().getPath();
+        path = path.substring(0, path.length() - 8);
+        File file = new File(path + "\\file\\" + filename);
+        InputStream inputStream = new FileInputStream(file);
+        byte[] body = new byte[inputStream.available()];
+        inputStream.read(body);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Content-Disposition", "attchement;filename=" + file.getName());
+        ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, httpHeaders, HttpStatus.OK);
+        return entity;
+    }
+
+
 }
