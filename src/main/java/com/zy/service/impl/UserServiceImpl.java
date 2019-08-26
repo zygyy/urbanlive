@@ -6,7 +6,6 @@ import com.github.pagehelper.PageInfo;
 import com.zy.dao.UserDao;
 import com.zy.entity.Result;
 import com.zy.entity.Tb_User;
-import com.zy.entity.Tb_info;
 import com.zy.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -46,10 +45,11 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 用户注册时，保证姓名唯一
+     *
      * @param user_name
      * @return
      */
-    public Tb_User checkRegister(String user_name){
+    public Tb_User checkRegister(String user_name) {
         return userDao.checkRegister(user_name);
     }
 
@@ -70,12 +70,30 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 根据ID查询用户
+     *
      * @param tb_user
      * @return
      */
-    public Result selectUserById(Tb_User tb_user){
+    public Result selectUserById(Tb_User tb_user) {
         return new Result(userDao.selectUserById(tb_user));
     }
 
+    /**
+     * 删除账户
+     *
+     * @param tb_user
+     * @return
+     */
+    @Override
+    public Result delectUser(Tb_User tb_user) {
+        tb_user.setUser_statue("1");
+        int i = userDao.delectUser(tb_user);
+        if (i == 1) {
+            return new Result(true, "删除成功！");
+        } else {
+            return new Result(false, "删除失败");
+        }
+
+    }
 
 }

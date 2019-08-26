@@ -27,6 +27,26 @@
 </center>
 </body>
 <script>
+    /*删除用户事件响应*/
+    $(document).on("click",".delete_btn",function(){
+        var user_id = $(this).attr("del-id");
+        var user_name = $(this).parents("tr").find("td:eq(1)").text();
+        if (confirm("确认删除【" + user_name + "】吗？")) {
+            //确认，发送ajax请求到后台删除即可
+            $.ajax({
+                url: "/user/del",
+                type: "post",
+                data:{
+                    id:user_id
+                },
+                success: function (result) {
+                    alert(result.message);
+
+                    getUsersNotAdmin(1);
+                }
+            });
+        }
+    });
     window.onload = function () {
         getUsersNotAdmin(1);
     }

@@ -2,7 +2,6 @@ package com.zy.controller;
 
 import com.github.pagehelper.Page;
 import com.zy.entity.Result;
-import com.zy.entity.StatusCode;
 import com.zy.entity.Tb_User;
 import com.zy.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -37,12 +36,12 @@ public class UserController {
         if (tb_userCheck == null) {
             if (tb_user.getUser_password().equals(user_passwordQueRen)) {
                 int result = userService.register(tb_user);
-                return new Result(true, StatusCode.OK, "注册成功");
+                return new Result(true, "注册成功");
             } else {
-                return new Result(false, StatusCode.ERROR, "请再次确认密码");
+                return new Result(false, "请再次确认密码");
             }
         } else {
-            return new Result(false, StatusCode.ERROR, "用户名重复");
+            return new Result(false, "用户名重复");
         }
 
     }
@@ -60,12 +59,12 @@ public class UserController {
         if (tb_userLogin != null) {
             if (tb_userLogin.getUser_password().equals(tb_user.getUser_password())) {
                 //System.out.println("密码正确！登录成功！");
-                return new Result(true, StatusCode.OK, "登录成功");
+                return new Result(true, "登录成功");
             } else {
-                return new Result(false, StatusCode.ERROR, "密码错误");
+                return new Result(false, "密码错误");
             }
         } else {
-            return new Result(false, StatusCode.ERROR, "账号错误");
+            return new Result(false, "账号错误");
         }
     }
 
@@ -96,4 +95,17 @@ public class UserController {
     public Result selectUserById(Tb_User tb_user) {
         return userService.selectUserById(tb_user);
     }
+
+    /**
+     * 删除用户
+     *
+     * @param tb_user
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/del")
+    public Result delectUser(Tb_User tb_user) {
+        return userService.delectUser(tb_user);
+    }
+
 }

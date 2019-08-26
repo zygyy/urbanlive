@@ -14,6 +14,7 @@ import com.zy.entity.Tb_User;
 public interface UserService {
     /**
      * 用户登录
+     *
      * @param user_name
      * @return
      */
@@ -21,6 +22,7 @@ public interface UserService {
 
     /**
      * 用户注册
+     *
      * @param tb_user
      * @return
      */
@@ -28,6 +30,7 @@ public interface UserService {
 
     /**
      * 用户注册时，保证姓名唯一
+     *
      * @param user_name
      * @return
      */
@@ -43,9 +46,18 @@ public interface UserService {
 
     /**
      * 根据ID查询用户
+     *
      * @param tb_user
      * @return
      */
     public Result selectUserById(Tb_User tb_user);
+
+    /**
+     * 删除用户
+     *
+     * @param tb_user
+     * @return
+     */
+    public Result delectUser(Tb_User tb_user);
 
 }

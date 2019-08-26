@@ -2,7 +2,6 @@ package com.zy.controller;
 
 import com.github.pagehelper.Page;
 import com.zy.entity.Result;
-import com.zy.entity.StatusCode;
 import com.zy.entity.Tb_info;
 import com.zy.service.InfoService;
 import org.springframework.stereotype.Controller;
@@ -37,9 +36,9 @@ public class InfoController {
         tb_info.setInfo_date(simpleDateFormat.format(new Date()));
         int resultAddMessage = infoService.addMessage(tb_info);
         if (resultAddMessage > 0) {
-            return new Result(true, StatusCode.OK, "信息发布成功");
+            return new Result(true, "信息发布成功");
         } else {
-            return new Result(false, StatusCode.OK, "信息发布失败");
+            return new Result(false, "信息发布失败");
         }
     }
 

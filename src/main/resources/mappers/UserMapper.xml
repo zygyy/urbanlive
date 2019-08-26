@@ -6,7 +6,7 @@
 
     <!--登录-->
     <select id="login" resultType="Tb_User">
-        select * from tb_user where user_name=#{user_name}
+        select * from tb_user where user_name=#{user_name} and user_statue=0
     </select>
 
     <!--注册-->
@@ -21,7 +21,7 @@
 
     <!--查询所有非管理员用户-->
     <select id="selectAllUser" resultType="Tb_User">
-        select * from tb_user  where user_type=0
+        select * from tb_user  where user_type=0 and user_statue=0
     </select>
 
     <!--根据ID查询用户-->
@@ -29,4 +29,12 @@
         select * from tb_User where id=#{id}
         and user_statue=0 and user_type=0
     </select>
+
+
+    <!--删除用户（把用户表的user_statue）-->
+    <update id="delectUser" parameterType="Tb_User">
+        update tb_user
+        set user_statue = #{user_statue,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper> 

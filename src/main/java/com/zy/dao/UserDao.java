@@ -49,5 +49,12 @@ public interface UserDao {
      */
     public Tb_User selectUserById(Tb_User tb_user);
 
+    /**
+     * 删除用户
+     * @param tb_user
+     * @return
+     */
+    public int delectUser(Tb_User tb_user);
+
 
 }
