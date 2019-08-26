@@ -26,8 +26,8 @@
                     </tr>
                     <tr height="40">
                         <td align="center">
-                            <input type="text" name="moneyID" value="" size="24"/>
-                            <input type="button" value="查询"/>
+                            <input id="selectuserid" type="text" name="moneyID" value="" size="24"/>
+                            <input onclick="selectByUserId()" type="button" value="查询"/>
                         </td>
                     </tr>
                 </table>
@@ -148,6 +148,14 @@
         window.localStorage.setItem("info_check", check);
         window.localStorage.setItem("info_type", type);
         window.parent.document.getElementById("main_show").contentWindow.document.getElementById("show").contentWindow.searchInfoDefault(1);
+
+    }
+
+    function selectByUserId() {
+        var selectuserid = $("#selectuserid").val();
+        window.localStorage.setItem("selectuserid", selectuserid);
+        window.parent.document.getElementById("main_show")
+            .contentWindow.document.getElementById("show").contentWindow.getUserByUserId();
 
     }
 

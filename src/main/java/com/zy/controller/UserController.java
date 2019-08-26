@@ -24,18 +24,19 @@ public class UserController {
 
     /**
      * 用户注册（用户名唯一）
+     *
      * @param user_passwordQueRen
      * @param tb_user
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/register/{user_passwordQueRen}", method = RequestMethod.POST)
-    public Result login(@PathVariable String user_passwordQueRen,Tb_User tb_user) {
+    public Result login(@PathVariable String user_passwordQueRen, Tb_User tb_user) {
         System.out.println("用户注册");
         Tb_User tb_userCheck = userService.checkRegister(tb_user.getUser_name());
         if (tb_userCheck == null) {
             if (tb_user.getUser_password().equals(user_passwordQueRen)) {
-               int result= userService.register(tb_user);
+                int result = userService.register(tb_user);
                 return new Result(true, StatusCode.OK, "注册成功");
             } else {
                 return new Result(false, StatusCode.ERROR, "请再次确认密码");
@@ -70,17 +71,29 @@ public class UserController {
 
     /**
      * 查询所有非管理员的用户
+     *
      * @param pageNum
      * @param pageSize
      * @return
      */
     @ResponseBody
     @RequestMapping("/select")
-    public Result selectAllUser(int pageNum,int pageSize){
+    public Result selectAllUser(int pageNum, int pageSize) {
         Page page = new Page();
         page.setPageSize(pageSize);
         page.setPageNum(pageNum);
         return userService.selectAllUser(page);
     }
 
+    /**
+     * 根据Id查找用户
+     *
+     * @param tb_user
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/selectById")
+    public Result selectUserById(Tb_User tb_user) {
+        return userService.selectUserById(tb_user);
+    }
 }

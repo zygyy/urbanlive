@@ -40,4 +40,12 @@ public interface UserService {
      * @return
      */
     public Result selectAllUser(Page page);
+
+    /**
+     * 根据ID查询用户
+     * @param tb_user
+     * @return
+     */
+    public Result selectUserById(Tb_User tb_user);
+
 }

@@ -10,7 +10,7 @@
     </select>
 
     <!--注册-->
-    <insert id="register" parameterType="Tb_User" >
+    <insert id="register" parameterType="Tb_User">
         insert into tb_user values(null,#{user_name},#{user_password},0,0)
     </insert>
 
@@ -24,4 +24,9 @@
         select * from tb_user  where user_type=0
     </select>
 
+    <!--根据ID查询用户-->
+    <select id="selectUserById" parameterType="Tb_User" resultType="Tb_User">
+        select * from tb_User where id=#{id}
+        and user_statue=0 and user_type=0
+    </select>
 </mapper> 

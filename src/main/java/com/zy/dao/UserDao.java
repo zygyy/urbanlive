@@ -41,5 +41,13 @@ public interface UserDao {
      */
     public List<Tb_User> selectAllUser();
 
+    /**
+     * 根据用户ID查询用户
+     *
+     * @param tb_user
+     * @return
+     */
+    public Tb_User selectUserById(Tb_User tb_user);
+
 
 }
