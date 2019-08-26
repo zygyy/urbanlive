@@ -93,4 +93,28 @@ public class InfoController {
         return infoService.selectInfoById(tb_info);
     }
 
+    /**
+     * 审核状态的修改
+     *
+     * @param tb_info
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/check")
+    public Result setCheck(Tb_info tb_info) {
+        return infoService.setChecked(tb_info);
+    }
+
+
+    /**
+     * 支付状态的修改
+     *
+     * @param tb_info
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/pay")
+    public Result setPay(Tb_info tb_info) {
+        return infoService.setPay(tb_info);
+    }
 }

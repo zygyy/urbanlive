@@ -68,4 +68,20 @@ public interface InfoService {
      * @return
      */
     public Result selectInfoById(Tb_info tb_info);
+
+    /**
+     * 修改核审状态
+     *
+     * @param tb_info
+     * @return
+     */
+    public Result setChecked(Tb_info tb_info);
+
+    /**
+     * 修改支付状态
+     *
+     * @param tb_info
+     * @return
+     */
+    public Result setPay(Tb_info tb_info);
 }

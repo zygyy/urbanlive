@@ -101,4 +101,47 @@
      select * from tb_info i, tb_type t where id=#{id} and i.info_type=t.type_sign
     </select>
 
+
+
+    <select id="selectById" parameterType="Tb_info" resultMap="queryAndType">
+     select  * from tb_info where id=#{id}
+    </select>
+
+    <!--修改支付和检测类型-->
+    <update id="updateInfoById" parameterType="Tb_info">
+        update tb_info
+        <set>
+            <if test="info_type != null">
+                info_type = #{info_type,jdbcType=INTEGER},
+            </if>
+            <if test="info_title != null">
+                info_title = #{info_title,jdbcType=VARCHAR},
+            </if>
+            <if test="info_content != null">
+                info_content = #{info_content,jdbcType=VARCHAR},
+            </if>
+            <if test="info_linkman != null">
+                info_linkman = #{info_linkman,jdbcType=VARCHAR},
+            </if>
+            <if test="info_phone != null">
+                info_phone = #{info_phone,jdbcType=VARCHAR},
+            </if>
+            <if test="info_email != null">
+                info_email = #{info_email,jdbcType=VARCHAR},
+            </if>
+            <if test="info_date != null">
+                info_date = #{info_date,jdbcType=VARCHAR},
+            </if>
+            <if test="info_check != null">
+                info_check = #{info_check,jdbcType=VARCHAR},
+            </if>
+            <if test="info_payfor != null">
+                info_payfor = #{info_payfor,jdbcType=VARCHAR},
+            </if>
+            <if test="info_status != null">
+                info_status = #{info_status,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

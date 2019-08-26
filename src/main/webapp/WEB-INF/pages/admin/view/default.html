@@ -79,19 +79,19 @@
 
 
     //给更新按钮添加点击绑定事件
-    $(document).on("click",".update_btn",function () {
+    $(document).on("click", ".update_btn", function () {
         var user_id = $(this).attr("update-id");
         var user_name = document.getElementById("name_input").value;
         var user_pwd = document.getElementById("pwd_input").value;
         $.ajax({
-            url:"/user/update",
-            type:"post",
-            data:{
-                id:user_id,
-                user_name:user_name,
-                user_password:user_pwd
+            url: "/user/update",
+            type: "post",
+            data: {
+                id: user_id,
+                user_name: user_name,
+                user_password: user_pwd
             },
-            success:function (result) {
+            success: function (result) {
                 alert(result.message);
                 getUsersNotAdmin(1);
             }
@@ -284,13 +284,18 @@
     function selectNotCheckPay() {
         var check_pay_id = window.localStorage.getItem("check_pay_id");
         $.ajax({
-            url:'/info/sel',
-            type:'post',
-            data:{
-                id:check_pay_id
+            url: '/info/sel',
+            type: 'post',
+            data: {
+                id: check_pay_id
             },
-            success:function (result) {
-                build_result_select_info(result);
+            success: function (result) {
+                if (result.flag == false) {
+                    alert(result.message)
+                } else {
+                    build_result_select_info(result);
+                }
+
             }
         })
     }
@@ -304,7 +309,7 @@
         var content = $("<b></b>").append('■查询详细信息').addClass("color=\"#004790\"");
         var title = $("<td></td>").append(content);
         var checkBtn = $("<button></button>").addClass("btn btn-success btn-sm check_btn")
-            .append($("<span></span>").addClass("glyphicon glyphicon-pencil").append("审核通过"));
+            .append($("<span></span>").addClass("glyphicon glyphicon-pencil").append("设置审核"));
         //为编辑按钮添加一个自定义的属性，来表示当前用户id
         checkBtn.attr("check-id", info.id);
         var payBtn = $("<button></button>").addClass("btn btn-primary btn-sm pay_btn")
@@ -351,6 +356,37 @@
             .appendTo("#searchResult tbody");
     }
 
+
+    // 为审核设置按钮添加事件
+    $(document).on("click", ".check_btn", function () {
+        var info_id = $(this).attr("check-id");
+        $.ajax({
+            url: "/info/check",
+            type: "post",
+            data: {
+                id: info_id
+            },
+            success: function (result) {
+                alert(result.message);
+            }
+        })
+    });
+
+
+    // 为支付设置按钮添加事件
+    $(document).on("click", ".pay_btn", function () {
+        var info_id = $(this).attr("pay-id");
+        $.ajax({
+            url: "/info/pay",
+            type: "post",
+            data: {
+                id: info_id
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        })
+    });
 
 </script>
 </html>

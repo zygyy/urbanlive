@@ -110,8 +110,57 @@ public class InfoServiceImpl implements InfoService {
      */
     @Override
     public Result selectInfoById(Tb_info tb_info) {
-        Tb_info infoById=infoDao.selectInfoById(tb_info);
-        return new Result(infoById);
+        Tb_info infoById = infoDao.selectInfoById(tb_info);
+        if (infoById != null) {
+            return new Result(true,infoById);
+        } else {
+            return new Result(false,"ID错误，查无此信息！");
+        }
+
+    }
+
+    /**
+     * 信息核审
+     *
+     * @param tb_info
+     * @return
+     */
+    @Override
+    public Result setChecked(Tb_info tb_info) {
+        Tb_info selectById = infoDao.selectById(tb_info);
+        if (selectById == null) {
+            return new Result(false, "ID错误，请再次确认！");
+        } else {
+            if (selectById.getInfo_check().equals("1")) {
+                return new Result(false, "信息已核审过了！");
+            } else {
+                tb_info.setInfo_check("1");
+                infoDao.updateInfoById(tb_info);
+                return new Result(true, "核审成功！");
+            }
+        }
+    }
+
+    /**
+     * 信息支付
+     *
+     * @param tb_info
+     * @return
+     */
+    @Override
+    public Result setPay(Tb_info tb_info) {
+        Tb_info selectById = infoDao.selectById(tb_info);
+        if (selectById == null) {
+            return new Result(false, "ID错误，请再次确认！");
+        } else {
+            if (selectById.getInfo_payfor().equals("1")) {
+                return new Result(false, "信息已经支付了！");
+            } else {
+                tb_info.setInfo_payfor("1");
+                infoDao.updateInfoById(tb_info);
+                return new Result(true, "支付成功！");
+            }
+        }
     }
 
 

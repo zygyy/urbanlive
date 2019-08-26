@@ -46,4 +46,20 @@ public interface InfoDao {
      */
     public Tb_info selectInfoById(Tb_info tb_info);
 
+
+    /**
+     *更新信息根据ID
+     *
+     * @param tb_info
+     * @return
+     */
+    public int updateInfoById(Tb_info tb_info);
+
+    /**
+     * 和上一个方法组合使用
+     *
+     * @param tb_info
+     * @return
+     */
+    public Tb_info selectById(Tb_info tb_info);
 }
