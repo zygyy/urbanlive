@@ -15,8 +15,8 @@ function build_page_nav(result) {
     $("#page_nav_area").empty();
     var ul = $("<ul></ul>").addClass("pagination");
     //构建元素
-    var firstPageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href", "#"));
-    var prePageLi = $("<li></li>").append($("<a></a>").append("上一页"));
+    var firstPageLi = $("<li style='list-style:none;float: left;'></li>").append($("<a></a>").append("首页&nbsp;&nbsp;").attr("href", "#"));
+    var prePageLi = $("<li style='list-style:none;float: left;'></li>").append($("<a></a>").append("上一页&nbsp;&nbsp;"));
     if (result.data.hasPreviousPage == false) {
         firstPageLi.addClass("disabled");
         prePageLi.addClass("disabled");
@@ -29,8 +29,8 @@ function build_page_nav(result) {
             searchInfo(result.data.pageNum-1);
         });
     }
-    var nextPageLi = $("<li></li>").append($("<a></a>").append("下一页"));
-    var lastPageLi = $("<li></li>").append($("<a></a>").append("末页").attr("href", "#"));
+    var nextPageLi = $("<li style='list-style:none;float: left;'></li>").append($("<a></a>").append("下一页&nbsp;&nbsp;"));
+    var lastPageLi = $("<li style='list-style:none;float: left;'></li>").append($("<a></a>").append("末页&nbsp;&nbsp;").attr("href", "#"));
     if (result.data.hasNextPage == false) {
         nextPageLi.addClass("disabled");
         lastPageLi.addClass("disabled");
@@ -46,12 +46,63 @@ function build_page_nav(result) {
     //构造首页和前一页提示按钮
     ul.append(firstPageLi).append(prePageLi);
     $.each(result.data.navigatepageNums,function (index,item) {
-        var numLi = $("<li></li>").append($("<a></a>").append(item));
+        var numLi = $("<li style='list-style:none;float: left;'></li>").append($("<a></a>").append(item+"&nbsp;&nbsp;"));
         if (result.data.pageNum == item) {
             numLi.addClass("active");
         }
         numLi.click(function () {
             searchInfo(item);
+        });
+        ul.append(numLi);
+    });
+    ul.append(nextPageLi).append(lastPageLi);
+    var navEle = $("<nav></nav>").append(ul);
+    navEle.appendTo("#page_nav_area");
+}
+
+// 解析并显示分页条信息
+function build_page_navDefault(result) {
+    //清空数据
+    $("#page_nav_area").empty();
+    var ul = $("<ul></ul>").addClass("pagination");
+    //构建元素
+    var firstPageLi = $("<li style='list-style:none;float: left;'></li>").append($("<a></a>").append("首页&nbsp;&nbsp;").attr("href", "#"));
+    var prePageLi = $("<li style='list-style:none;float: left;'></li>").append($("<a></a>").append("上一页&nbsp;&nbsp;"));
+    if (result.data.hasPreviousPage == false) {
+        firstPageLi.addClass("disabled");
+        prePageLi.addClass("disabled");
+    }else {
+        //为元素添加点击翻页事件
+        firstPageLi.click(function () {
+            searchInfoDefault(1);
+        });
+        prePageLi.click(function () {
+            searchInfoDefault(result.data.pageNum-1);
+        });
+    }
+    var nextPageLi = $("<li style='list-style:none;float: left;'></li>").append($("<a></a>").append("下一页&nbsp;&nbsp;"));
+    var lastPageLi = $("<li style='list-style:none;float: left;'></li>").append($("<a></a>").append("末页&nbsp;&nbsp;").attr("href", "#"));
+    if (result.data.hasNextPage == false) {
+        nextPageLi.addClass("disabled");
+        lastPageLi.addClass("disabled");
+    }else {
+        //为元素添加点击翻页事件
+        nextPageLi.click(function () {
+            searchInfoDefault(result.data.pageNum+1);
+        });
+        lastPageLi.click(function () {
+            searchInfoDefault(result.data.pages);
+        });
+    }
+    //构造首页和前一页提示按钮
+    ul.append(firstPageLi).append(prePageLi);
+    $.each(result.data.navigatepageNums,function (index,item) {
+        var numLi = $("<li style='list-style:none;float: left;'></li>").append($("<a></a>").append(item+"&nbsp;&nbsp;"));
+        if (result.data.pageNum == item) {
+            numLi.addClass("active");
+        }
+        numLi.click(function () {
+            searchInfoDefault(item);
         });
         ul.append(numLi);
     });

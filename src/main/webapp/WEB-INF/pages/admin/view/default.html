@@ -8,16 +8,8 @@
 <body>
 <center>
 
-    <table id="searchResult" border="0" cellpadding="0" cellspacing="0" width="650" height="300">
+    <table id="searchResult" border="0" cellpadding="0" cellspacing="0" width="650" height="500">
         <thead>
-        <!--<tr align="center" height="50" bgcolor="#F0F0F0">-->
-            <!--<td width="6%"><b>序号</b></td>-->
-            <!--<td width="11%"><b>信息类别</b></td>-->
-            <!--<td width="8%"><b>ID值</b></td>-->
-            <!--<td width="24%"><b>信息标题</b></td>-->
-            <!--<td width="28%"><b>发布时间</b></td>-->
-            <!--<td width="15%"><b>联系人</b></td>-->
-        <!--</tr>-->
         </thead>
         <tbody></tbody>
     </table>
@@ -34,7 +26,7 @@
 </center>
 </body>
 <script>
-    function getInfo(pN) {
+    function searchInfoDefault(pN) {
         var pageSize = 5;
         var type = window.localStorage.getItem("info_type");
         var pay = window.localStorage.getItem("info_payfor");
@@ -52,7 +44,7 @@
             success:function(result){
                 build_result(result);
                 build_page_info(result);
-                build_page_nav(result);
+                build_page_navDefault(result);
             }
         })
     }
