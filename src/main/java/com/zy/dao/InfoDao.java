@@ -38,5 +38,12 @@ public interface InfoDao {
      */
     public List<Tb_info> selectAllByCheckPay(Tb_info tb_info);
 
+    /**
+     * 根据信息ID查询信息
+     *
+     * @param tb_info
+     * @return
+     */
+    public Tb_info selectInfoById(Tb_info tb_info);
 
 }

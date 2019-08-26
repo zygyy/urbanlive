@@ -59,4 +59,13 @@ public interface InfoService {
      * @return
      */
     public Result selectAllByCheckPay(Page page, Tb_info tb_info);
+
+
+    /**
+     * 根据信息ID查询信息
+     *
+     * @param tb_info
+     * @return
+     */
+    public Result selectInfoById(Tb_info tb_info);
 }

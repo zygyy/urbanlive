@@ -81,5 +81,16 @@ public class InfoController {
         return infoService.selectAllByCheckPay(page, tb_info);
     }
 
+    /**
+     * 根据Id查询信息
+     *
+     * @param tb_info
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/sel")
+    public Result selectInfoById(Tb_info tb_info) {
+        return infoService.selectInfoById(tb_info);
+    }
 
 }

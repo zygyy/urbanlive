@@ -126,8 +126,8 @@
                         </tr>
                         <tr height="40">
                             <td align="center">
-                                <input type="text" name="moneyID" value="" size="24"/>
-                                <input type="button" value="查询"/>
+                                <input type="text" id="check_pay_id" name="moneyID" value="" size="24"/>
+                                <input type="button" onclick="setCheckPay()" value="查询"/>
                             </td>
                         </tr>
                     </table>
@@ -157,6 +157,13 @@
         window.parent.document.getElementById("main_show")
             .contentWindow.document.getElementById("show").contentWindow.getUserByUserId();
 
+    }
+
+    function setCheckPay(){
+        var check_pay_id = document.getElementById("check_pay_id").value;
+        window.localStorage.setItem("check_pay_id", check_pay_id);
+        window.parent.document.getElementById("main_show")
+            .contentWindow.document.getElementById("show").contentWindow.selectNotCheckPay();
     }
 
     WdatePicker({eCont: 'div1'})

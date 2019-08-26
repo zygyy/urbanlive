@@ -102,4 +102,17 @@ public class InfoServiceImpl implements InfoService {
         return new Result(tb_infoPageInfo);
     }
 
+    /**
+     * 根据ID查询相应信息
+     *
+     * @param tb_info
+     * @return
+     */
+    @Override
+    public Result selectInfoById(Tb_info tb_info) {
+        Tb_info infoById=infoDao.selectInfoById(tb_info);
+        return new Result(infoById);
+    }
+
+
 }
