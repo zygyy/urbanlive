@@ -60,4 +60,13 @@ public interface UserService {
      */
     public Result delectUser(Tb_User tb_user);
 
+
+    /**
+     * 更新用户
+     *
+     * @param tb_User
+     * @return
+     */
+    public Result updateUser(Tb_User tb_User);
+
 }

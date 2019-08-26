@@ -51,10 +51,17 @@ public interface UserDao {
 
     /**
      * 删除用户
+     *
      * @param tb_user
      * @return
      */
     public int delectUser(Tb_User tb_user);
 
-
+    /**
+     * 更新用户
+     *
+     * @param tb_User
+     * @return
+     */
+    public int updateUser(Tb_User tb_User);
 }

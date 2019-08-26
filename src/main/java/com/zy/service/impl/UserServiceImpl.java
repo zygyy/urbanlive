@@ -96,4 +96,22 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * 更新用户
+     *
+     * @param tb_User
+     * @return
+     */
+    public Result updateUser(Tb_User tb_User) {
+        int result=userDao.updateUser(tb_User);
+        if(result==1){
+            return new Result(true, "更新成功！");
+        } else {
+            return new Result(false, "更新失败");
+        }
+
+    }
+
+
+
 }

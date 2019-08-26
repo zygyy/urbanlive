@@ -37,4 +37,18 @@
         set user_statue = #{user_statue,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
+    
+    <!--更新User相关信息-->
+    <update id="updateUser" parameterType="Tb_User">
+        update tb_user
+        <set>
+            <if test="user_name != null">
+                user_name = #{user_name,jdbcType=VARCHAR},
+            </if>
+            <if test="user_password != null">
+                user_password = #{user_password,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper> 

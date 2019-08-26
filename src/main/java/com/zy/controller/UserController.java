@@ -108,4 +108,15 @@ public class UserController {
         return userService.delectUser(tb_user);
     }
 
+    /**
+     * 更新用户信息
+     *
+     * @param tb_user
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/update")
+    public Result updateUser(Tb_User tb_user) {
+      return userService.updateUser(tb_user);
+    }
 }
