@@ -4,6 +4,7 @@
     <title>后台首页</title></head>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script src="/js/page.js"></script>
+<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 <link type="text/css" rel="stylesheet" href="/css/style.css">
 <body>
 <center>
@@ -26,22 +27,73 @@
 </center>
 </body>
 <script>
+    window.onload = function () {
+        getUsersNotAdmin(1);
+    }
+
+    function getUsersNotAdmin(pageNum) {
+        var pageSize = 5;
+        $.ajax({
+            url: "/user/select",
+            type: "post",
+            data: {
+                pageNum: pageNum,
+                pageSize: pageSize
+            },
+            success: function (result) {
+                build_result_user(result);
+                build_page_info(result);
+                build_page_navUser(result);
+            }
+        })
+    }
+
+
+    function build_result_user(result) {
+        $("#searchResult thead").empty();
+        $("#searchResult tbody").empty();
+        var users = result.data.list;
+        var id = $("<td></td>").append('用户ID');
+        var user_name = $("<td></td>").append('用户名');
+        var option = $("<td></td>").append('操作');
+        $("<tr></tr>").append(id)
+            .append(user_name)
+            .append(option)
+            .appendTo("#searchResult thead");
+        $.each(users, function (index, item) {
+            var user_id_1 = $("<td></td>").append(item.id);
+            var user_name_1 = $("<td></td>").append(item.user_name);
+            var editBtn = $("<button></button>").addClass("btn btn-success btn-sm edit_btn")
+                .append($("<span></span>").addClass("glyphicon glyphicon-pencil").append("Edit"));
+            //为编辑按钮添加一个自定义的属性，来表示当前用户id
+            editBtn.attr("edit-id", item.id);
+            var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
+                .append($("<span></span>").addClass("glyphicon glyphicon-trash").append("Delete"));
+            delBtn.attr("del-id", item.id);
+            var btnTd = $("<td></td>").append(editBtn).append(" | ").append(delBtn);
+            $("<tr></tr>").append(user_id_1)
+                .append(user_name_1)
+                .append(btnTd)
+                .appendTo("#searchResult tbody");
+        });
+    }
+
     function searchInfoDefault(pN) {
         var pageSize = 5;
         var type = window.localStorage.getItem("info_type");
         var pay = window.localStorage.getItem("info_payfor");
         var check = window.localStorage.getItem("info_check");
         $.ajax({
-            url:"/info/select",
-            type:"post",
-            data:{
-                pageNum:pN,
-                pageSize:pageSize,
-                info_type:type,
-                info_payfor:pay,
-                info_check:check
+            url: "/info/select",
+            type: "post",
+            data: {
+                pageNum: pN,
+                pageSize: pageSize,
+                info_type: type,
+                info_payfor: pay,
+                info_check: check
             },
-            success:function(result){
+            success: function (result) {
                 build_result(result);
                 build_page_info(result);
                 build_page_navDefault(result);

@@ -2,6 +2,8 @@ package com.zy.dao;
 
 import com.zy.entity.Tb_User;
 
+import java.util.List;
+
 /**
  * @author 周宇
  * @university ycit.com
@@ -10,6 +12,7 @@ import com.zy.entity.Tb_User;
 public interface UserDao {
     /**
      * 用户登录
+     *
      * @param user_name
      * @return
      */
@@ -17,6 +20,7 @@ public interface UserDao {
 
     /**
      * 用户注册时，保证姓名唯一(跟登录方法相同，可以省略)
+     *
      * @param user_name
      * @return
      */
@@ -24,11 +28,18 @@ public interface UserDao {
 
     /**
      * 用户注册
+     *
      * @param tb_user
      * @return
      */
     public int register(Tb_User tb_user);
 
+    /**
+     * 查询所有非管理用户
+     *
+     * @return
+     */
+    public List<Tb_User> selectAllUser();
 
 
 }

@@ -1,11 +1,17 @@
 package com.zy.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zy.dao.UserDao;
+import com.zy.entity.Result;
 import com.zy.entity.Tb_User;
+import com.zy.entity.Tb_info;
 import com.zy.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author 周宇
@@ -45,6 +51,21 @@ public class UserServiceImpl implements UserService {
      */
     public Tb_User checkRegister(String user_name){
         return userDao.checkRegister(user_name);
+    }
+
+    /**
+     * 查询所有非管理员用户
+     *
+     * @param page
+     * @return
+     */
+    @Override
+    public Result selectAllUser(Page page) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        List<Tb_User> tb_users = userDao.selectAllUser();
+        PageInfo<Tb_User> tb_userPageInfo = new PageInfo<>(tb_users);
+        return new Result(tb_userPageInfo);
+
     }
 
 

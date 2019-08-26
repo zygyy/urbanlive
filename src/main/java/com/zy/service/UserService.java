@@ -1,6 +1,8 @@
 package com.zy.service;
 
 
+import com.github.pagehelper.Page;
+import com.zy.entity.Result;
 import com.zy.entity.Tb_User;
 
 /**
@@ -31,5 +33,11 @@ public interface UserService {
      */
     public Tb_User checkRegister(String user_name);
 
-
+    /**
+     * 查询所有非管理员用户
+     *
+     * @param page
+     * @return
+     */
+    public Result selectAllUser(Page page);
 }

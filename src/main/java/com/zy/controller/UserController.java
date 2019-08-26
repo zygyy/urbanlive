@@ -1,5 +1,6 @@
 package com.zy.controller;
 
+import com.github.pagehelper.Page;
 import com.zy.entity.Result;
 import com.zy.entity.StatusCode;
 import com.zy.entity.Tb_User;
@@ -67,5 +68,19 @@ public class UserController {
         }
     }
 
+    /**
+     * 查询所有非管理员的用户
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/select")
+    public Result selectAllUser(int pageNum,int pageSize){
+        Page page = new Page();
+        page.setPageSize(pageSize);
+        page.setPageNum(pageNum);
+        return userService.selectAllUser(page);
+    }
 
 }
