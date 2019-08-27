@@ -61,7 +61,7 @@
         pwd_input.val('');
         var user_pwd_input = $("<td></td>").append($(pwd_input));
         var updateBtn = $("<button></button>").addClass("btn btn-success btn-sm update_btn")
-            .append($("<span></span>").addClass("glyphicon glyphicon-pencil").append("Update"));
+            .append($("<span></span>").addClass("glyphicon glyphicon-pencil").append("保存"));
         //为编辑按钮添加一个自定义的属性，来表示当前用户id
         updateBtn.attr("update-id", user.id);
         $("<tr></tr>").append(user_id)
@@ -113,7 +113,6 @@
                 },
                 success: function (result) {
                     alert(result.message);
-
                     getUsersNotAdmin(1);
                 }
             });
@@ -125,6 +124,7 @@
         getUsersNotAdmin(1);
     }
 
+    /*首页获取用户信息*/
     function getUsersNotAdmin(pageNum) {
         var pageSize = 5;
         $.ajax({
@@ -165,7 +165,7 @@
             var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash").append("删除"));
             delBtn.attr("del-id", item.id);
-            var btnTd = $("<td></td>").append(editBtn).append(" | ").append(delBtn);
+            var btnTd = $("<td></td>").append(editBtn).append("&nbsp;&nbsp;").append(delBtn);
             $("<tr></tr>").append(user_id_1)
                 .append(user_name_1)
                 .append(btnTd)
@@ -173,7 +173,7 @@
         });
     }
 
-
+    /*按条件检索信息*/
     function searchInfoDefault(pN) {
         var pageSize = 5;
         var type = window.localStorage.getItem("info_type");
@@ -233,6 +233,7 @@
     }
 
 
+    /*查询用户信息*/
     function getUserByUserId() {
         var selectuserid = window.localStorage.getItem("selectuserid");
         $.ajax({
@@ -280,7 +281,7 @@
         }
     }
 
-    // 根据ID查询需要设置的信息
+    /*根据ID查询需要设置的信息*/
     function selectNotCheckPay() {
         var check_pay_id = window.localStorage.getItem("check_pay_id");
         $.ajax({
@@ -317,7 +318,7 @@
         //为编辑按钮添加一个自定义的属性，来表示当前用户id
         payBtn.attr("pay-id", info.id);
         $("<tr></tr>").append(title)
-            .append(checkBtn).append(" | ").append(payBtn)
+            .append(checkBtn).append("&nbsp;&nbsp;").append(payBtn)
             .appendTo("#searchResult thead");
         var c_c_1 = $("<td></td>").append('信息类别');
         var c_c_2 = $("<td></td>").append(info.tb_type.type_name);
