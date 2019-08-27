@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -112,9 +113,9 @@ public class InfoServiceImpl implements InfoService {
     public Result selectInfoById(Tb_info tb_info) {
         Tb_info infoById = infoDao.selectInfoById(tb_info);
         if (infoById != null) {
-            return new Result(true,infoById);
+            return new Result(true, infoById);
         } else {
-            return new Result(false,"ID错误，查无此信息！");
+            return new Result(false, "ID错误，查无此信息！");
         }
 
     }
@@ -161,6 +162,22 @@ public class InfoServiceImpl implements InfoService {
                 return new Result(true, "支付成功！");
             }
         }
+    }
+
+
+    /**
+     * 查询招聘信息(免费和付费)
+     *
+     * @param tb_info
+     * @return
+     */
+    public Result recruit(Tb_info tb_info) {
+        Tb_info resultRecruit_0 = infoDao.recruit_0(tb_info);
+        Tb_info resultRecruit_1 = infoDao.recruit_1(tb_info);
+        List<Tb_info> result = new ArrayList<>();
+        result.add(resultRecruit_0);
+        result.add(resultRecruit_1);
+        return new Result(result);
     }
 
 

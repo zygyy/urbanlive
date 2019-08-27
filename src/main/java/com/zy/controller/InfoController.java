@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -123,6 +124,7 @@ public class InfoController {
     @ResponseBody
     @RequestMapping("/pay")
     public Result setPay(Tb_info tb_info) {
+
         return infoService.setPay(tb_info);
     }
 
@@ -147,6 +149,18 @@ public class InfoController {
         httpHeaders.add("Content-Disposition", "attchement;filename=" + file.getName());
         ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, httpHeaders, HttpStatus.OK);
         return entity;
+    }
+
+    /**
+     * 招聘信息
+     *
+     * @param tb_info
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/recruit")
+    public Result recruit(Tb_info tb_info) {
+        return infoService.recruit(tb_info);
     }
 
 

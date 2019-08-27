@@ -84,4 +84,13 @@ public interface InfoService {
      * @return
      */
     public Result setPay(Tb_info tb_info);
+
+    /**
+     * 查询招聘信息
+     *
+     * @param tb_info
+     * @return
+     */
+    public Result recruit(Tb_info tb_info);
+
 }

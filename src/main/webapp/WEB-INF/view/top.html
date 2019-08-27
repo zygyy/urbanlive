@@ -2,6 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>页眉</title>
+    <script src="/js/jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <link type="text/css" rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -34,7 +35,7 @@
                             <a href="" onclick="window.parent.location.href='indextemp.html'" style="color:white">暂时没有信息</a>
                         </td>
                         <td width="100">
-                            <a href="/info/recruit?info_type=1" onclick="" style="color:white">招聘信息</a>
+                            <a href="" onclick="select(1)" style="color:white">招聘信息</a>
                         </td>
                         <td width="100">
                             <a href="" onclick="window.parent.location.href='/pages/show/listshow.html'" style="color:white">培训信息</a>
@@ -80,4 +81,12 @@
     </table>
 </center>
 </body>
+<script>
+    function select(type) {
+        var info_type=type;
+        window.localStorage.setItem("info_type", info_type);
+        window.parent.location.href = '/pages/show/listshow.html';
+
+    }
+</script>
 </html>

@@ -1,93 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html >
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>都市信息网</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <link type="text/css" rel="stylesheet" href="/css/style.css">
 </head>
 <body background="/images/back.gif">
 <center>
     <table border="0" width="920" cellspacing="0" cellpadding="0" bgcolor="white">
-        <tr><td colspan="2">
-            <!-- 页眉 -->
-            <iframe src="/view/top.html" frameBorder="0" width="920" scrolling="no" height="200" ></iframe>
-        </td></tr>
+        <tr>
+            <td colspan="2">
+                <!-- 页眉 -->
+                <iframe id="listshow" src="/view/top.html" frameBorder="0" width="920" scrolling="no"
+                        height="200"></iframe>
+            </td>
+        </tr>
         <tr>
             <td width="230" valign="top" align="center">
                 <!-- 左侧 -->
-                <iframe src="/view/left.html" frameBorder="0" width="225" scrolling="no" height="400" ></iframe>
+                <iframe src="/view/left.html" frameBorder="0" width="225" scrolling="no" height="400"></iframe>
             </td>
             <td width="690" height="400" align="center" valign="top" bgcolor="#FFFFFF">
                 <table border="0" width="670" cellspacing="0" cellpadding="0" style="margin-top:5">
 
-
-                    <tr height="30"><td style="text-indent:5" valign="bottom"><font color="#004790"><b>■推荐八卦信息</b>『免费专区』</font></td></tr>
-
-
-                    <tr><td align="center" style="border:1 solid" bgcolor="#F0F0F0">
+                    <tr>
+                        <td align="center" style="border:1 solid" bgcolor="#F0F0F0">
 
 
-                        <table border="0" width="655" cellpadding="3" style="word-break:break-all">
-                            <tr height="30">
-                                <td colspan="2">${theLastFreeMessage.info_title}</td>
-                                <td align="right">发布时间：『${theLastFreeMessage.info_date}』&nbsp;</td>
-                            </tr>
-                            <tr height="80"><td colspan="3">${theLastFreeMessage.info_content}</td></tr>
-                            <tr height="30" align="center">
-                                <td>联系电话：${theLastFreeMessage.info_phone}</td>
-                                <td>联 系 人：${theLastFreeMessage.info_linkman}</td>
-                                <td>E-mail：${theLastFreeMessage.info_email}</td>
-                            </tr>
-                        </table>
-                    </td>
-                    </tr>
-                    <tr height="1"><td></td></tr>
-
-
-                </table>
-                <!-- 列表显示免费信息 -->
-
-                <table border="0" width="670" cellspacing="0" cellpadding="0" style="margin-top:5" rules="rows">
-
-
-                    <tr height="30"><td style="text-indent:5" valign="bottom"><font color="#004790"><b>■最新无聊信息</b>『收费专区』</font></td></tr>
-
-
-                    <tr><td align="center" style="border:1 solid" bgcolor="#F0F0F0">
-
-
-                        <table border="0" width="655" cellpadding="3" style="word-break:break-all">
-                            <tr height="30">
-                                <td colspan="2">【${theLastMoneyMessage.info_title}】</td>
-                                <td align="right">发布时间：『${theLastMoneyMessage.info_date}』&nbsp;</td>
-                            </tr>
-                            <tr height="80"><td colspan="3">${theLastMoneyMessage.info_content}</td></tr>
-                            <tr height="30" align="center">
-                                <td>联系电话：${theLastMoneyMessage.info_content}</td>
-                                <td>联系人：${theLastMoneyMessage.info_phone}</td>
-                                <td>E-mail：${theLastMoneyMessage.info_email}</td>
-                            </tr>
-                        </table>
-                    </td>
-                    </tr>
-                    <tr height="1"><td></td></tr>
-
-                    <tr height="30">
-                        <td align="center">
-                            <html>
-                            <head><title>分页导航栏</title></head>
-                            <body>
-                            <table border="0" width="100%" cellspacing="0">
-                                <tr>
-                                    <td width="60%"></td>
-                                    <td align="center" width="40%"></td>
-                                </tr>
+                            <table id="searchResult" border="0" width="655" cellpadding="3" style="word-break:break-all">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                </tbody>
                             </table>
-                            </body>
-                            </html>
-                        </td></tr>
-
+                        </td>
+                    </tr>
+                    <tr height="1">
+                        <td></td>
+                    </tr>
                 </table>
+
                 <br>
             </td>
         </tr>
@@ -97,4 +50,107 @@
     <iframe src="/view/end.html" frameBorder="0" width="920" scrolling="no" height="70" style="margin-top:0"></iframe>
 </center>
 </body>
+
+<script>
+    window.onload = function () {
+        // 通过getElementById获取嵌套页面的ID调用嵌套的页面的方法进行参数回填
+        document.getElementById("listshow");
+        searchInfo();
+    };
+
+
+    <!-- 根据不同条件进行信息搜索-->
+    function searchInfo() {
+        var info_type = window.localStorage.getItem("info_type");
+        $.ajax({
+            url: '/info/recruit',
+            type: 'post',
+            data: {
+                info_type: info_type,
+            },
+            success: function (result) {
+                console.info(result.data[0])
+                build_result(result);
+            }
+        });
+    }
+
+    /*构建结果集*/
+    function build_result(result) {
+        $("#searchResult thead").empty();
+        $("#searchResult tbody").empty();
+        var info = result.data[1];
+        var content = $("<b></b>").append('■缴费专区').addClass("color=\"#004790\"");
+        var title = $("<td></td>").append(content);
+        $("<tr></tr>").append(title)
+            .appendTo("#searchResult thead");
+        var c_c_1 = $("<td></td>").append('信息标题');
+        var c_c_2 = $("<td></td>").append(info.info_title);
+        $("<tr></tr>").append(c_c_1)
+            .append(c_c_2)
+            .appendTo("#searchResult tbody");
+        var c_c_3 = $("<td></td>").append('发布时间');
+        var c_c_4 = $("<td></td>").append(info.info_date);
+        $("<tr></tr>").append(c_c_3)
+            .append(c_c_4)
+            .appendTo("#searchResult tbody");
+        var c_c_5 = $("<td></td>").append('信息内容');
+        var c_c_6 = $("<td></td>").append(info.info_content);
+        $("<tr></tr>").append(c_c_5)
+            .append(c_c_6)
+            .appendTo("#searchResult tbody");
+        var c_c_7 = $("<td></td>").append('联系电话');
+        var c_c_8 = $("<td></td>").append(info.info_phone);
+        $("<tr></tr>").append(c_c_7)
+            .append(c_c_8)
+            .appendTo("#searchResult tbody");
+        var c_c_9 = $("<td></td>").append('联系人');
+        var c_c_11 = $("<td></td>").append(info.info_linkman);
+        $("<tr></tr>").append(c_c_9)
+            .append(c_c_11)
+            .appendTo("#searchResult tbody");
+        var c_c_12 = $("<td></td>").append('E-mail');
+        var c_c_13 = $("<td></td>").append(info.info_email);
+        $("<tr></tr>").append(c_c_12)
+            .append(c_c_13)
+            .appendTo("#searchResult tbody");
+
+
+        var info0 = result.data[0];
+        var content0 = $("<b></b>").append('■免费专区').addClass("color=\"#004790\"");
+        var title0 = $("<td></td>").append(content0);
+        $("<tr></tr>").append(title0)
+            .appendTo("#searchResult tbody");
+        var c_c_14 = $("<td></td>").append('信息标题');
+        var c_c_15 = $("<td></td>").append(info0.info_title);
+        $("<tr></tr>").append(c_c_14)
+            .append(c_c_15)
+            .appendTo("#searchResult tbody");
+        var c_c_16 = $("<td></td>").append('发布时间');
+        var c_c_17= $("<td></td>").append(info0.info_date);
+        $("<tr></tr>").append(c_c_16)
+            .append(c_c_17)
+            .appendTo("#searchResult tbody");
+        var c_c_18 = $("<td></td>").append('信息内容');
+        var c_c_19 = $("<td></td>").append(info0.info_content);
+        $("<tr></tr>").append(c_c_18)
+            .append(c_c_19)
+            .appendTo("#searchResult tbody");
+        var c_c_20 = $("<td></td>").append('联系电话');
+        var c_c_21 = $("<td></td>").append(info0.info_phone);
+        $("<tr></tr>").append(c_c_20)
+            .append(c_c_21)
+            .appendTo("#searchResult tbody");
+        var c_c_22 = $("<td></td>").append('联系人');
+        var c_c_23 = $("<td></td>").append(info0.info_linkman);
+        $("<tr></tr>").append(c_c_22)
+            .append(c_c_23)
+            .appendTo("#searchResult tbody");
+        var c_c_24 = $("<td></td>").append('E-mail');
+        var c_c_25 = $("<td></td>").append(info0.info_email);
+        $("<tr></tr>").append(c_c_24)
+            .append(c_c_25)
+            .appendTo("#searchResult tbody");
+    }
+</script>
 </html>

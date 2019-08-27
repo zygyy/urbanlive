@@ -12,6 +12,7 @@ import java.util.List;
 public interface InfoDao {
     /**
      * 信息发布
+     *
      * @param tb_info
      * @return
      */
@@ -19,6 +20,7 @@ public interface InfoDao {
 
     /**
      * 全字匹配查询
+     *
      * @param tb_info
      * @return
      */
@@ -26,6 +28,7 @@ public interface InfoDao {
 
     /**
      * 模糊查询
+     *
      * @param tb_info
      * @return
      */
@@ -33,6 +36,7 @@ public interface InfoDao {
 
     /**
      * 查询付款信息
+     *
      * @param tb_info
      * @return
      */
@@ -48,7 +52,7 @@ public interface InfoDao {
 
 
     /**
-     *更新信息根据ID
+     * 更新信息根据ID
      *
      * @param tb_info
      * @return
@@ -62,4 +66,23 @@ public interface InfoDao {
      * @return
      */
     public Tb_info selectById(Tb_info tb_info);
+
+    /**
+     * 查询招聘信息(免费)
+     *
+     * @param tb_info
+     * @return
+     */
+    public Tb_info recruit_0(Tb_info tb_info);
+
+    /**
+     * 查询招聘信息(付费)
+     *
+     * @param tb_info
+     * @return
+     */
+    public Tb_info recruit_1(Tb_info tb_info);
+
+
+
 }
