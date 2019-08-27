@@ -16,7 +16,7 @@
     </table>
 
     <!--显示分页信息-->
-    <div class="row">
+    <div class="row" id="row">
         <!--分页文字信息-->
         <div class="col-md-6" align="left" id="page_info_area">
         </div>
@@ -43,9 +43,10 @@
     });
 
 
-    /*构建修改面板*/
+    /*构建用户修改面板*/
     function build_result_select_user_edit(result) {
         var user = result.data;
+        $("#row").empty();
         $("#searchResult thead").empty();
         $("#searchResult tbody").empty();
         var user_id = $("<td></td>").append('用户ID');
@@ -250,6 +251,7 @@
 
     /*根据id查询到的用户*/
     function build_result_selectuser(result) {
+        $("#row").empty();
         $("#searchResult thead").empty();
         $("#searchResult tbody").empty();
         var user = result.data;
@@ -270,7 +272,7 @@
             var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash").append("删除"));
             delBtn.attr("del-id", user.id);
-            var btnTd = $("<td></td>").append(editBtn).append(" | ").append(delBtn);
+            var btnTd = $("<td></td>").append(editBtn).append("&nbsp;&nbsp;").append(delBtn);
             $("<tr></tr>").append(user_id_1)
                 .append(user_name_1)
                 .append(btnTd)
@@ -302,8 +304,9 @@
     }
 
 
-    // 构建显示根据ID查询到的信息
+  /* 构建显示根据ID查询到Info的信息*/
     function build_result_select_info(result) {
+        $("#row").empty();
         $("#searchResult thead").empty();
         $("#searchResult tbody").empty();
         var info = result.data;
