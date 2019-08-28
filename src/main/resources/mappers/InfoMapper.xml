@@ -146,11 +146,13 @@
     </update>
 
 
+    <!--查询没有付费的最新消息-->
     <select id="recruit_0" parameterType="Tb_info" resultMap="queryAndType">
         select * from tb_info where info_type=#{info_type} and info_payfor=0
         and id=(select MAX(id) FROM tb_info where info_type=#{info_type} and info_payfor=0)
     </select>
 
+    <!--查询付费了的最新消息-->
     <select id="recruit_1" parameterType="Tb_info" resultMap="queryAndType">
         select * from tb_info where info_type=#{info_type} and info_payfor=1
         and id=(select MAX(id) FROM tb_info where info_type=#{info_type} and info_payfor=1)

@@ -1,4 +1,4 @@
-<html >
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>都市信息网</title>
@@ -28,11 +28,12 @@
                         <td align="center" style="border:1 solid" bgcolor="#F0F0F0">
 
 
-                            <table id="searchResult" border="0" width="655" cellpadding="3" style="word-break:break-all">
-                                <thead>
-                                </thead>
-                                <tbody>
-                                </tbody>
+                            <table id="searchResult" border="0" width="655" cellpadding="3"
+                                   style="word-break:break-all">
+                                <!-- <thead>
+                                 </thead>
+                                 <tbody>
+                                 </tbody>-->
                             </table>
                         </td>
                     </tr>
@@ -76,87 +77,137 @@
 
     /*构建结果集*/
     function build_result(result) {
-        if(result.data[1]!=null){
-            $("#searchResult thead").empty();
-            $("#searchResult tbody").empty();
-            var info = result.data[1];
-            var content = $("<b></b>").append('■缴费专区').addClass("color=\"#004790\"");
-            var title = $("<td></td>").append(content);
-            $("<tr></tr>").append(title)
-                .appendTo("#searchResult tbody");
-            var c_c_1 = $("<td></td>").append('信息标题');
-            var c_c_2 = $("<td></td>").append(info.info_title);
-            $("<tr></tr>").append(c_c_1)
-                .append(c_c_2)
-                .appendTo("#searchResult tbody");
-            var c_c_3 = $("<td></td>").append('发布时间');
-            var c_c_4 = $("<td></td>").append(info.info_date);
-            $("<tr></tr>").append(c_c_3)
-                .append(c_c_4)
-                .appendTo("#searchResult tbody");
-            var c_c_5 = $("<td></td>").append('信息内容');
-            var c_c_6 = $("<td></td>").append(info.info_content);
-            $("<tr></tr>").append(c_c_5)
-                .append(c_c_6)
-                .appendTo("#searchRe sult tbody");
-            var c_c_7 = $("<td></td>").append('联系电话');
-            var c_c_8 = $("<td></td>").append(info.info_phone);
-            $("<tr></tr>").append(c_c_7)
-                .append(c_c_8)
-                .appendTo("#searchResult tbody");
-            var c_c_9 = $("<td></td>").append('联系人');
-            var c_c_11 = $("<td></td>").append(info.info_linkman);
-            $("<tr></tr>").append(c_c_9)
-                .append(c_c_11)
-                .appendTo("#searchResult tbody");
-            var c_c_12 = $("<td></td>").append('E-mail');
-            var c_c_13 = $("<td></td>").append(info.info_email);
-            $("<tr></tr>").append(c_c_12)
-                .append(c_c_13)
-                .appendTo("#searchResult tbody");
-        }else {
-            alert("没有付费消息！")
-        }
+        let oBox = document.querySelector('#searchResult');
+        let arr = result.data[0];
+        let arr1 = result.data[1];
 
-       if(result.data[0]!=null){
-           var info0 = result.data[0];
-           var content0 = $("<b></b>").append('■免费专区').addClass("color=\"#004790\"");
-           var title0 = $("<td></td>").append(content0);
-           $("<tr></tr>").append(title0)
-               .appendTo("#searchResult tbody");
-           var c_c_14 = $("<td></td>").append('信息标题');
-           var c_c_15 = $("<td></td>").append(info0.info_title);
-           $("<tr></tr>").append(c_c_14)
-               .append(c_c_15)
-               .appendTo("#searchResult tbody");
-           var c_c_16 = $("<td></td>").append('发布时间');
-           var c_c_17= $("<td></td>").append(info0.info_date);
-           $("<tr></tr>").append(c_c_16)
-               .append(c_c_17)
-               .appendTo("#searchResult tbody");
-           var c_c_18 = $("<td></td>").append('信息内容');
-           var c_c_19 = $("<td></td>").append(info0.info_content);
-           $("<tr></tr>").append(c_c_18)
-               .append(c_c_19)
-               .appendTo("#searchResult tbody");
-           var c_c_20 = $("<td></td>").append('联系电话');
-           var c_c_21 = $("<td></td>").append(info0.info_phone);
-           $("<tr></tr>").append(c_c_20)
-               .append(c_c_21)
-               .appendTo("#searchResult tbody");
-           var c_c_22 = $("<td></td>").append('联系人');
-           var c_c_23 = $("<td></td>").append(info0.info_linkman);
-           $("<tr></tr>").append(c_c_22)
-               .append(c_c_23)
-               .appendTo("#searchResult tbody");
-           var c_c_24 = $("<td></td>").append('E-mail');
-           var c_c_25 = $("<td></td>").append(info0.info_email);
-           $("<tr></tr>").append(c_c_24)
-               .append(c_c_25)
-               .appendTo("#searchResult tbody");
-       }else {
-           alert("没有免费消息！")
-       }
+        if (arr == null && arr1 == null) {
+            alert("暂无付费和免费消息")
+        } else if (arr != null && arr1 == null) {
+            alert("暂无付费消息")
+            oBox.innerHTML = `
+        <tr>
+        <td class="color=black">■免费专区</td>
+        <td>最新免费无聊消息</td>
+        </tr>
+        <tr>
+        <td class="color=black">信息标题</td>
+        <td>${arr.info_title}</td>
+        </tr>
+         <tr>
+        <td class="color=black">发布时间</td>
+        <td>${arr.info_date}</td>
+        </tr>
+        <tr>
+        <td class="color=black">信息内容</td>
+        <td>${arr.info_content}</td>
+        </tr>
+         <tr>
+        <td class="color=black">联系电话</td>
+        <td>${arr.info_phone}</td>
+        </tr>
+         <tr>
+        <td class="color=black">联系人</td>
+        <td>${arr.info_linkman}</td>
+        </tr>
+         <tr>
+        <td class="color=black">E-mail</td>
+        <td>${arr.info_email}</td>
+        </tr>
+        `
+        }else if(arr == null && arr1 != null){
+            alert("暂无免费消息")
+            oBox.innerHTML = `
+          <tr>
+        <td class="color=black">■付费专区</td>
+        <td>最新付费无聊消息</td>
+        </tr>
+        <tr>
+        <td class="color=black">信息标题</td>
+        <td>${arr1.info_title}</td>
+        </tr>
+         <tr>
+        <td class="color=black">发布时间</td>
+        <td>${arr1.info_date}</td>
+        </tr>
+        <tr>
+        <td class="color=black">信息内容</td>
+        <td>${arr1.info_content}</td>
+        </tr>
+         <tr>
+        <td class="color=black">联系电话</td>
+        <td>${arr1.info_phone}</td>
+        </tr>
+         <tr>
+        <td class="color=black">联系人</td>
+        <td>${arr1.info_linkman}</td>
+        </tr>
+         <tr>
+        <td class="color=black">E-mail</td>
+        <td>${arr1.info_email}</td>
+        </tr>
+        `
+        }else{
+            oBox.innerHTML = `
+          <tr>
+        <td class="color=black">■付费专区</td>
+        <td>最新付费无聊消息</td>
+        </tr>
+        <tr>
+        <td class="color=black">信息标题</td>
+        <td>${arr1.info_title}</td>
+        </tr>
+         <tr>
+        <td class="color=black">发布时间</td>
+        <td>${arr1.info_date}</td>
+        </tr>
+        <tr>
+        <td class="color=black">信息内容</td>
+        <td>${arr1.info_content}</td>
+        </tr>
+         <tr>
+        <td class="color=black">联系电话</td>
+        <td>${arr1.info_phone}</td>
+        </tr>
+         <tr>
+        <td class="color=black">联系人</td>
+        <td>${arr1.info_linkman}</td>
+        </tr>
+         <tr>
+        <td class="color=black">E-mail</td>
+        <td>${arr1.info_email}</td>
+        </tr>
+
+        <tr>
+        <td class="color=black">■免费专区</td>
+        <td>最新免费无聊消息</td>
+        </tr>
+        <tr>
+        <td class="color=black">信息标题</td>
+        <td>${arr.info_title}</td>
+        </tr>
+         <tr>
+        <td class="color=black">发布时间</td>
+        <td>${arr.info_date}</td>
+        </tr>
+        <tr>
+        <td class="color=black">信息内容</td>
+        <td>${arr.info_content}</td>
+        </tr>
+         <tr>
+        <td class="color=black">联系电话</td>
+        <td>${arr.info_phone}</td>
+        </tr>
+         <tr>
+        <td class="color=black">联系人</td>
+        <td>${arr.info_linkman}</td>
+        </tr>
+         <tr>
+        <td class="color=black">E-mail</td>
+        <td>${arr.info_email}</td>
+        </tr>
+        `
+        }
 
 
     }
