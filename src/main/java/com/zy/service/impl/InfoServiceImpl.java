@@ -48,14 +48,26 @@ public class InfoServiceImpl implements InfoService {
     @Override
     public Result select(Page page, String type, String key, String searchType) throws NoSuchFieldException, IllegalAccessException {
         Tb_info tb_info = new Tb_info();
-        Field field = Tb_info.class.getDeclaredField(type);
-        field.setAccessible(true);
-        field.set(tb_info, key);
-        if (searchType.equals("all")) {
-            return selectByAll(page, tb_info);
-        } else {
-            return selectByLike(page, tb_info);
+        if(type.equals("id")){
+            Field field = Tb_info.class.getDeclaredField(type);
+            field.setAccessible(true);
+            field.set(tb_info, Integer.valueOf(key));
+            if (searchType.equals("all")) {
+                return selectByAll(page, tb_info);
+            } else {
+                return selectByLike(page, tb_info);
+            }
+        }else{
+            Field field = Tb_info.class.getDeclaredField(type);
+            field.setAccessible(true);
+            field.set(tb_info, key);
+            if (searchType.equals("all")) {
+                return selectByAll(page, tb_info);
+            } else {
+                return selectByLike(page, tb_info);
+            }
         }
+
     }
 
     /**
